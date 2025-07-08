@@ -18,23 +18,25 @@ PanelWindow {
     right: 8
   }
 
+  color: "transparent"
 
   Rectangle {
     id: bar
     anchors.fill: parent
     color: '#272727'
-    border.color: "#123456"
-    border.width: 3
+    // border.color: "#123456"
+    // border.width: 3
     radius: 15
 
     Row {
       id: workspaceRow
 
-      anchors {
-        left: parent.left
-        verticalCenter: parent.verticalCenter
-        leftMargin: 16
-      }
+      anchors.centerIn: parent
+      // anchors {
+      //   left: parent.left
+      //   verticalCenter: parent.verticalCenter
+      //   leftMargin: 16
+      // }
       spacing: 8
 
       Repeater {
