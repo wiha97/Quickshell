@@ -2,9 +2,13 @@ import QtQuick
 import Quickshell
 import Quickshell.Hyprland
 import Quickshell.Services.SystemTray
+import Quickshell.Services.UPower
 
 PanelWindow {
   id: panel
+
+  property int rad: 15
+  property int barHeight: 35
 
   anchors {
     bottom: true
@@ -25,22 +29,13 @@ PanelWindow {
     id: bar
     anchors.fill: parent
     color: 'transparent'
-    // border.color: "#123456"
-    // border.width: 3
-    radius: 15
 
-    // Rectangle {
-    //   anchors {
-    //     left: parent.left
-    //     right: parent.right
-    //     verticalCenter: parent.verticalCenter
-    //   }
-    //   color: '#30cd30'
-    //   width: workspaceRow.width + 16
-    //   implicitHeight: 25
-    //   radius: 15
-    //   opacity: 0.7
-    // }
+    Rectangle {
+      id: apps
+
+
+    }
+
 
     //  Workspaces
     //
@@ -49,19 +44,13 @@ PanelWindow {
       color: '#272727'
       width: workspaceRow.width + 16
       height: workspaceRow.height + 16
-      radius: 15
-      // opacity: 0.94
+      radius: rad
     }
 
     Row {
       id: workspaceRow
 
       anchors.centerIn: parent
-      // anchors {
-      //   left: parent.left
-      //   verticalCenter: parent.verticalCenter
-      //   leftMargin: 16
-      // }
       spacing: 8
 
       Repeater {
@@ -98,94 +87,162 @@ PanelWindow {
       }
     }
 
+    Row {
+      id: infoRow
 
-    // Systray
-    //
-    Rectangle{
-      color: "#272727"
-      width: sysRow.width + 10
-      height: timeDisp.height
-      radius:15
-      anchors{
+      spacing: 10
+
+      anchors {
         right: parent.right
         verticalCenter: parent.verticalCenter
-        rightMargin: 25 + timeDisp.width
       }
 
-      Row {
-        id: sysRow
+      // Systray
+      //
+      Rectangle{
+        color: "#272727"
+        width: sysRow.width
+        height: barHeight
+        radius: rad
 
-        anchors.centerIn: parent
+        Row {
+          id: sysRow
 
-        spacing: 5
-        Repeater {
-          model: SystemTray.items
+          anchors.centerIn: parent
 
-          Rectangle {
-            width: 24
-            height: 24
-            color: "transparent"
+          padding: 10
+          spacing: 5
+          Repeater {
+            model: SystemTray.items
 
-            Image {
-              source: modelData.icon
-              anchors.fill: parent
-            }
+            Rectangle {
+              width: 20
+              height: 20
+              color: "transparent"
 
-            MouseArea {
-              anchors.fill: parent
-              acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton
+              Image {
+                source: modelData.icon
+                anchors.fill: parent
+              }
 
-              onClicked: mouse => {
-                if (mouse.button === Qt.LeftButton) {
-                  modelData.activate()
-                } else if (mouse.button === Qt.MiddleButton) {
-                  modelData.secondaryActivate()
-                } else if (mouse.button === Qt.RightButton && model.hasMenu) {
-                  modelData.display(parent, mouse.x, mouse.y)
+              MouseArea {
+                anchors.fill: parent
+                acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton
+
+                onClicked: m => {
+                  if (m.button === Qt.LeftButton) {
+                    modelData.activate()
+                  } else if (m.button === Qt.MiddleButton) {
+                    modelData.secondaryActivate()
+                  } else if (m.button === Qt.RightButton && model.hasMenu) {
+                    modelData.display(parent, m.x, m.y)
+                  }
                 }
               }
             }
           }
         }
       }
-    }
 
-    // Clock
-    //
-    Rectangle{
-      color: "#272727"
-      width: timeDisp.width + 5
-      height: timeDisp.height
-      radius:15
-      anchors{
-        right: parent.right
-        verticalCenter: parent.verticalCenter
-        rightMargin: 10
+      //  Battery
+      //
+      Rectangle {
+        color: "#272727"
+        width: powRow.width
+        height: barHeight
+        radius: rad
+
+        Row {
+          id: powRow
+          spacing:5
+          padding: 10
+          anchors.centerIn: parent
+
+          Repeater {
+            model: UPower.displayDevice
+            Rectangle{
+              width: batTxt.width
+              height: 24
+              color: "transparent"
+              Text {
+                id: batTxt
+                font.pixelSize: 25
+                text: "bat"
+                color: "#ffffff"
+                anchors.centerIn: parent
+                Timer {
+                  interval: 1000
+                  running: true
+                  repeat: true
+
+                  onTriggered: {
+                    let lvl = modelData.percentage * 100
+                    let icon = modelData.state === 2 ? "" : "\udb81\udea5"
+                    if (lvl < 10)
+                      icon += "\udb80\udc83"
+                    else if (lvl < 15)
+                      icon += "\udb80\udc7a"
+                    else if (lvl < 20)
+                      icon += "\udb80\udc7b"
+                    else if (lvl < 30)
+                      icon += "\udb80\udc7c"
+                    else if (lvl < 40)
+                      icon += "\udb80\udc7d"
+                    else if (lvl < 50)
+                      icon += "\udb80\udc7e"
+                    else if (lvl < 60)
+                      icon += "\udb80\udc7f"
+                    else if (lvl < 70)
+                      icon += "\udb80\udc80"
+                    else if (lvl < 80)
+                      icon += "\udb80\udc81"
+                    else if (lvl < 90)
+                      icon += "\udb80\udc82"
+                    else if (lvl < 100)
+                      icon += "\udb80\udc79"
+                    icon += " "
+                    batTxt.text = icon + lvl + "%"
+                  }
+                }
+              }
+            }
+          }
+        }
       }
-    }
 
-    Text {
-      id: timeDisp
-      property string cTime: "..."
+      // Clock
+      //
+      Rectangle{
+        color: "#272727"
+        width: dateRow.width
+        height: barHeight
+        radius: rad
 
-      anchors {
-        right: parent.right
-        verticalCenter: parent.verticalCenter
-        rightMargin: 10
-      }
+        Row {
+          id: dateRow
+          anchors.centerIn: parent
+          padding: 10
 
-      text: cTime+" \udb82\udd54"
-      color: "#ffffff"
-      font.pixelSize: 25
+          Text {
+            id: timeDisp
+            property string cTime: "..."
 
-      Timer {
-        interval: 1000
-        running: true
-        repeat: true
 
-        onTriggered: {
-          var date = new Date()
-          timeDisp.cTime = Qt.formatTime(date, "HH:mm")
+            text: cTime + " \udb82\udd54"
+            color: "#ffffff"
+            font.pixelSize: 25
+
+            Timer {
+              interval: 1000
+              running: true
+              repeat: true
+
+              onTriggered: {
+                var date = new Date()
+                timeDisp.cTime = Qt.formatTime(date, "HH:mm")
+              }
+            }
+          }
         }
       }
     }
