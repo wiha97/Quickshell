@@ -57,11 +57,12 @@ PanelWindow {
         model: Hyprland.workspaces
 
         Rectangle {
+          property string wId: modelData.id
           width: 120
           height: 35
           radius: 7
           color: "#202020"
-          border.color: modelData.active ? "#1E90FF" : "#202020"
+          border.color: modelData.active || wId === "-98" ? "#32cd32" : "#202020"
           border.width: 2
 
           MouseArea {
@@ -72,7 +73,7 @@ PanelWindow {
 
           Text {
             anchors.centerIn: parent
-            text: modelData.id
+            text: wId === "-98" ? "\udb85\udce7" : wId
             font.pixelSize: 25
             color: "#ffffff"
           }
@@ -116,8 +117,8 @@ PanelWindow {
             model: SystemTray.items
 
             Rectangle {
-              width: 20
-              height: 20
+              width: 24
+              height: 24
               color: "transparent"
 
               Image {
