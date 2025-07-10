@@ -3,24 +3,35 @@ import Quickshell
 import Quickshell.Hyprland
 import Quickshell.Services.SystemTray
 import Quickshell.Services.UPower
+import Quickshell.Io
+// import "./widgets"
+import "./widgets" as Widgets
 
 PanelWindow {
   id: panel
 
-  property int rad: 15
-  property int barHeight: 35
+  property int barHeight: 50 // Default: 50
+  property int widgetHeight: barHeight / 1.4
+  property int rad: widgetHeight / 2
+  property int fontSize: barHeight / 2
+  property string mainColor: "#272727"
+  property string accentColor: "#32cd32"
+  property string mainBColor: accentColor
+  property string secBColor: accentColor
+  property string txtColor: accentColor
+  property bool showLine: true
 
   anchors {
-    bottom: true
+    top: true
     left: true
     right: true
   }
 
-  implicitHeight: 50
+  implicitHeight: barHeight
   margins {
-    bottom: 8
-    left: 8
-    right: 8
+    top: 10
+    left: 15
+    right: 15
   }
 
   color: "transparent"
@@ -31,9 +42,43 @@ PanelWindow {
     color: 'transparent'
 
     Rectangle {
-      id: apps
+      visible: showLine
+      anchors {
+        left: parent.left
+        right: parent.right
+        verticalCenter: parent.verticalCenter
+      }
+      height: widgetHeight / 4
+      color: accentColor
+      opacity: 0.8
+      border.color: mainColor
+      border.width:1
 
+    }
 
+    Row {
+      id: appRow
+      anchors {
+        left: parent.left
+        verticalCenter: parent.verticalCenter
+      }
+      Rectangle {
+        id: activeAppRect
+        color: mainColor
+        width: activeWinTxt.width
+        height: widgetHeight
+        radius: rad
+        border.color: mainBColor
+
+        Text {
+          id: activeWinTxt
+          padding: 20
+          anchors.verticalCenter: parent.verticalCenter
+          color: txtColor
+          font.pixelSize: fontSize / 1.5
+          text: "// TODO: Finish this panel"
+        }
+      }
     }
 
 
@@ -41,50 +86,58 @@ PanelWindow {
     //
     Rectangle {
       anchors.centerIn: parent
-      color: '#272727'
-      width: workspaceRow.width + 16
-      height: workspaceRow.height + 16
-      radius: rad
-    }
+      color: mainColor
+      width: workspaceRow.width
+      // height: workspaceRow.height + 16
+      height: parent.height
+      // radius: rad
+      topRightRadius: rad
+      topLeftRadius: rad
+      bottomLeftRadius: rad
+      bottomRightRadius: rad
+      border.color: mainBColor
 
-    Row {
-      id: workspaceRow
+      Row {
+        id: workspaceRow
 
-      anchors.centerIn: parent
-      spacing: 8
+        anchors.centerIn: parent
+        spacing: 8
+        padding: 8
 
-      Repeater {
-        model: Hyprland.workspaces
+        Repeater {
+          model: Hyprland.workspaces
 
-        Rectangle {
-          property string wId: modelData.id
-          width: 120
-          height: 35
-          radius: 7
-          color: "#202020"
-          border.color: modelData.active || wId === "-98" ? "#32cd32" : "#202020"
-          border.width: 2
+          Rectangle {
+            property string wId: modelData.id
+            width: barHeight * 2
+            height: widgetHeight
+            radius: rad / 2
+            color: "#202020"
+            border.color: modelData.active || wId === "-98" ? secBColor : "#202020"
+            border.width: 2
 
-          MouseArea {
-            anchors.fill: parent
+            MouseArea {
+              anchors.fill: parent
 
-            onClicked: Hyprland.dispatch("workspace " + modelData.id)
-          }
+              onClicked: wId === "-98" ? Hyprland.dispatch("togglespecialworkspace scratchpad") :
+                                         Hyprland.dispatch("workspace " + modelData.id)
+            }
 
-          Text {
-            anchors.centerIn: parent
-            text: wId === "-98" ? "\udb85\udce7" : wId
-            font.pixelSize: 25
-            color: "#ffffff"
+            Text {
+              anchors.centerIn: parent
+              text: wId === "-98" ? "\udb85\udce7" : modelData.name
+              font.pixelSize: fontSize
+              color: txtColor
+            }
           }
         }
-      }
 
-      Text {
-        visible: Hyprland.workspaces.length === 0
-        text: "None"
-        color: "#ffffff"
-        font.pixelSize: 25
+        Text {
+          visible: Hyprland.workspaces.length === 0
+          text: "None"
+          color: txtColor
+          font.pixelSize: fontSize
+        }
       }
     }
 
@@ -101,10 +154,12 @@ PanelWindow {
       // Systray
       //
       Rectangle{
-        color: "#272727"
+        visible: SystemTray.items.values.length === 0 ? false : true
+        color: mainColor
         width: sysRow.width
-        height: barHeight
+        height: widgetHeight
         radius: rad
+        border.color: mainBColor
 
         Row {
           id: sysRow
@@ -117,8 +172,8 @@ PanelWindow {
             model: SystemTray.items
 
             Rectangle {
-              width: 24
-              height: 24
+              width: fontSize
+              height: fontSize
               color: "transparent"
 
               Image {
@@ -135,7 +190,7 @@ PanelWindow {
                     modelData.activate()
                   } else if (m.button === Qt.MiddleButton) {
                     modelData.secondaryActivate()
-                  } else if (m.button === Qt.RightButton && model.hasMenu) {
+                  } else if (m.button === Qt.RightButton && modelData.hasMenu) {
                     modelData.display(parent, m.x, m.y)
                   }
                 }
@@ -148,10 +203,11 @@ PanelWindow {
       //  Battery
       //
       Rectangle {
-        color: "#272727"
+        color: mainColor
         width: powRow.width
-        height: barHeight
+        height: widgetHeight
         radius: rad
+        border.color: mainBColor
 
         Row {
           id: powRow
@@ -167,9 +223,9 @@ PanelWindow {
               color: "transparent"
               Text {
                 id: batTxt
-                font.pixelSize: 25
-                text: "bat"
-                color: "#ffffff"
+                font.pixelSize: fontSize
+                text: "pwr"
+                color: txtColor
                 anchors.centerIn: parent
                 Timer {
                   interval: 1000
@@ -201,8 +257,9 @@ PanelWindow {
                       icon += "\udb80\udc82"
                     else if (lvl < 100)
                       icon += "\udb80\udc79"
-                    icon += " "
-                    batTxt.text = icon + lvl + "%"
+                    // icon += " "
+                    // batTxt.text = icon + lvl.toFixed(0) + "%"
+                    batTxt.text = lvl.toFixed(0) + "% " + icon
                   }
                 }
               }
@@ -214,10 +271,11 @@ PanelWindow {
       // Clock
       //
       Rectangle{
-        color: "#272727"
+        color: mainColor
         width: dateRow.width
-        height: barHeight
+        height: widgetHeight
         radius: rad
+        border.color: mainBColor
 
         Row {
           id: dateRow
@@ -230,8 +288,8 @@ PanelWindow {
 
 
             text: cTime + " \udb82\udd54"
-            color: "#ffffff"
-            font.pixelSize: 25
+            color: txtColor
+            font.pixelSize: fontSize
 
             Timer {
               interval: 1000
