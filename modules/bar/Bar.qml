@@ -1,10 +1,5 @@
 import QtQuick
 import Quickshell
-import Quickshell.Hyprland
-import Quickshell.Services.SystemTray
-import Quickshell.Services.UPower
-import Quickshell.Io
-// import "./widgets"
 import "./widgets" as Widgets
 
 PanelWindow {
@@ -20,11 +15,13 @@ PanelWindow {
   property string secBColor: accentColor
   property string txtColor: accentColor
   property bool showLine: true
+  property bool barOnTop: true
 
   anchors {
-    top: true
+    top: barOnTop
     left: true
     right: true
+    bottom: !barOnTop
   }
 
   implicitHeight: barHeight
@@ -32,6 +29,7 @@ PanelWindow {
     top: 10
     left: 15
     right: 15
+    bottom: 10
   }
 
   color: "transparent"
@@ -84,61 +82,10 @@ PanelWindow {
 
     //  Workspaces
     //
-    Rectangle {
+    Row {
       anchors.centerIn: parent
-      color: mainColor
-      width: workspaceRow.width
-      // height: workspaceRow.height + 16
-      height: parent.height
-      // radius: rad
-      topRightRadius: rad
-      topLeftRadius: rad
-      bottomLeftRadius: rad
-      bottomRightRadius: rad
-      border.color: mainBColor
 
-      Row {
-        id: workspaceRow
-
-        anchors.centerIn: parent
-        spacing: 8
-        padding: 8
-
-        Repeater {
-          model: Hyprland.workspaces
-
-          Rectangle {
-            property string wId: modelData.id
-            width: barHeight * 2
-            height: widgetHeight
-            radius: rad / 2
-            color: "#202020"
-            border.color: modelData.active || wId === "-98" ? secBColor : "#202020"
-            border.width: 2
-
-            MouseArea {
-              anchors.fill: parent
-
-              onClicked: wId === "-98" ? Hyprland.dispatch("togglespecialworkspace scratchpad") :
-                                         Hyprland.dispatch("workspace " + modelData.id)
-            }
-
-            Text {
-              anchors.centerIn: parent
-              text: wId === "-98" ? "\udb85\udce7" : modelData.name
-              font.pixelSize: fontSize
-              color: txtColor
-            }
-          }
-        }
-
-        Text {
-          visible: Hyprland.workspaces.length === 0
-          text: "None"
-          color: txtColor
-          font.pixelSize: fontSize
-        }
-      }
+      Widgets.Workspaces {}
     }
 
     Row {
@@ -151,122 +98,8 @@ PanelWindow {
         verticalCenter: parent.verticalCenter
       }
 
-      // Systray
-      //
-      Rectangle{
-        visible: SystemTray.items.values.length === 0 ? false : true
-        color: mainColor
-        width: sysRow.width
-        height: widgetHeight
-        radius: rad
-        border.color: mainBColor
-
-        Row {
-          id: sysRow
-
-          anchors.centerIn: parent
-
-          padding: 10
-          spacing: 5
-          Repeater {
-            model: SystemTray.items
-
-            Rectangle {
-              width: fontSize
-              height: fontSize
-              color: "transparent"
-
-              Image {
-                source: modelData.icon
-                anchors.fill: parent
-              }
-
-              MouseArea {
-                anchors.fill: parent
-                acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton
-
-                onClicked: m => {
-                  if (m.button === Qt.LeftButton) {
-                    modelData.activate()
-                  } else if (m.button === Qt.MiddleButton) {
-                    modelData.secondaryActivate()
-                  } else if (m.button === Qt.RightButton && modelData.hasMenu) {
-                    modelData.display(parent, m.x, m.y)
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-
-      //  Battery
-      //
-      Rectangle {
-        color: mainColor
-        width: powRow.width
-        height: widgetHeight
-        radius: rad
-        border.color: mainBColor
-
-        Row {
-          id: powRow
-          spacing:5
-          padding: 10
-          anchors.centerIn: parent
-
-          Repeater {
-            model: UPower.displayDevice
-            Rectangle{
-              width: batTxt.width
-              height: 24
-              color: "transparent"
-              Text {
-                id: batTxt
-                font.pixelSize: fontSize
-                text: "pwr"
-                color: txtColor
-                anchors.centerIn: parent
-                Timer {
-                  interval: 1000
-                  running: true
-                  repeat: true
-
-                  onTriggered: {
-                    let lvl = modelData.percentage * 100
-                    let icon = modelData.state === 2 ? "" : "\udb81\udea5"
-                    if (lvl < 10)
-                      icon += "\udb80\udc83"
-                    else if (lvl < 15)
-                      icon += "\udb80\udc7a"
-                    else if (lvl < 20)
-                      icon += "\udb80\udc7b"
-                    else if (lvl < 30)
-                      icon += "\udb80\udc7c"
-                    else if (lvl < 40)
-                      icon += "\udb80\udc7d"
-                    else if (lvl < 50)
-                      icon += "\udb80\udc7e"
-                    else if (lvl < 60)
-                      icon += "\udb80\udc7f"
-                    else if (lvl < 70)
-                      icon += "\udb80\udc80"
-                    else if (lvl < 80)
-                      icon += "\udb80\udc81"
-                    else if (lvl < 90)
-                      icon += "\udb80\udc82"
-                    else if (lvl < 100)
-                      icon += "\udb80\udc79"
-                    // icon += " "
-                    // batTxt.text = icon + lvl.toFixed(0) + "%"
-                    batTxt.text = lvl.toFixed(0) + "% " + icon
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
+      Widgets.Systray {}
+      Widgets.Battery {}
 
       // Clock
       //
