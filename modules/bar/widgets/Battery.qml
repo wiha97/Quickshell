@@ -5,12 +5,8 @@ import Quickshell.Services.UPower
 
 //  Battery
 //
-Rectangle {
-  color: mainColor
+Container {
   width: powRow.width
-  height: widgetHeight
-  radius: rad
-  border.color: mainBColor
 
   Row {
     id: powRow
@@ -20,7 +16,7 @@ Rectangle {
 
     Repeater {
       model: UPower.displayDevice
-      Rectangle{
+      Rectangle {
         width: batTxt.width
         height: 24
         color: "transparent"
