@@ -33,16 +33,32 @@ Rectangle{
         }
 
         MouseArea {
+          id: mArea
           anchors.fill: parent
           acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton
 
           onClicked: m => {
             if (m.button === Qt.LeftButton) {
+              if(modelData.onlyMenu)
+                menuAnchor.open();
               modelData.activate()
-            } else if (m.button === Qt.MiddleButton) {
-              modelData.secondaryActivate()
             } else if (m.button === Qt.RightButton && modelData.hasMenu) {
-              modelData.display(parent, m.x, m.y)
+              menuAnchor.open();
+            }
+          }
+          QsMenuAnchor {
+            id: menuAnchor
+            menu: modelData.menu
+
+            anchor.window: mArea.QsWindow.window
+            anchor.adjustment: PopopAdjustment.Flip
+
+            anchor.onAnchoring: {
+              const window = mArea.QsWindow.window
+              const widgetRect = window.contentItem.mapFromItem(mArea, 0, mArea.height, mArea.width, mArea.height);
+              console.log("open plz");
+
+              menuAnchor.anchor.rect = widgetRect;
             }
           }
         }
