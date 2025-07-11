@@ -1,5 +1,6 @@
 import QtQuick
 import Quickshell
+import Quickshell.Hyprland
 import "./widgets" as Widgets
 
 PanelWindow {
@@ -60,23 +61,7 @@ PanelWindow {
         left: parent.left
         verticalCenter: parent.verticalCenter
       }
-      Rectangle {
-        id: activeAppRect
-        color: mainColor
-        width: activeWinTxt.width
-        height: widgetHeight
-        radius: rad
-        border.color: mainBColor
-
-        Text {
-          id: activeWinTxt
-          padding: 20
-          anchors.verticalCenter: parent.verticalCenter
-          color: txtColor
-          font.pixelSize: fontSize / 1.5
-          text: "// TODO: Finish this panel"
-        }
-      }
+      Widgets.Titlebar {}
     }
 
 
@@ -85,7 +70,9 @@ PanelWindow {
     Row {
       anchors.centerIn: parent
 
-      Widgets.Workspaces {}
+      Widgets.Workspaces {
+        // visible: Hyprland.workspaces.values.length <= 8 ? true : false
+      }
     }
 
     Row {
@@ -99,6 +86,7 @@ PanelWindow {
       }
 
       Widgets.Systray {}
+      Widgets.Bluetooth {}
       Widgets.Battery {}
 
       // Clock
