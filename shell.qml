@@ -10,10 +10,17 @@ ShellRoot {
 
   Loader {
     active: true
-    sourceComponent: Bar{}
     property int hgt: 50
     sourceComponent: Bar {
-      barHeight: Hyprland.workspaces.values.length < 8 ? hgt : hgt * 0.8 
+      // Conf.barHeight: Hyprland.workspaces.values.length < 8 ? hgt : hgt * 0.8
+      // showLine: false
     }
   }
+  // Loader {
+  //   active: Hyprland.workspaces.values.length > 8 ? true : false
+  //   sourceComponent: SecBar {
+  //     barOnTop: false
+  //     barHeight: 40
+  //   }
+  // }
 }

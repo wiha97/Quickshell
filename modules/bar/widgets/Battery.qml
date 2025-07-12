@@ -1,12 +1,14 @@
 import QtQuick
 import Quickshell
 import Quickshell.Services.UPower
+import "root:/"
 
 
 //  Battery
 //
 Container {
   width: powRow.width
+  property string tColor: Conf.txtColor
 
   Row {
     id: powRow
@@ -22,9 +24,9 @@ Container {
         color: "transparent"
         Text {
           id: batTxt
-          font.pixelSize: fontSize
+          font.pixelSize: Conf.fontSize
           text: "pwr"
-          color: txtColor
+          color: tColor
           anchors.centerIn: parent
           Timer {
             interval: 1000

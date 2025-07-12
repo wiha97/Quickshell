@@ -1,9 +1,10 @@
 import QtQuick
 import Quickshell
+import "root:/"
 
 Rectangle {
-  color: mainColor
-  height: widgetHeight
-  radius: rad
-  border.color: mainBColor
+  color: Conf.mainColor
+  height: Conf.widgetHeight
+  radius: Conf.rad
+  border.color: Conf.mainBColor
 }

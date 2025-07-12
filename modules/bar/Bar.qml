@@ -2,37 +2,40 @@ import QtQuick
 import Quickshell
 import Quickshell.Hyprland
 import "./widgets" as Widgets
+import QtQuick.Effects
+import "root:/"
+
 
 PanelWindow {
   id: panel
 
-  property int barHeight: 50 // Default: 50
-  property int widgetHeight: barHeight / 1.4
-  property int rad: widgetHeight / 2
-  property int fontSize: barHeight / 2
-  property int topMarge: 10
-  property string mainColor: "#272727"
-  property string accentColor: "#32cd32"
-  property string mainBColor: accentColor
-  property string secBColor: accentColor
-  property string txtColor: accentColor
-  property string secTxtColor: txtColor
-  property bool showLine: true
-  property bool barOnTop: true
+  // property int barHeight: Conf.barHeight // Default: 50
+  // property int widgetHeight: barHeight / 1.4
+  // property int rad: widgetHeight / 2
+  // property int fontSize: barHeight / 2
+  // property int topMarge: 10
+  // property string mainColor: "#272727"
+  // property string accentColor: "#32cd32"
+  // property string mainBColor: accentColor
+  // property string secBColor: accentColor
+  // property string txtColor: accentColor
+  // property string secTxtColor: txtColor
+  // property bool showLine: true
+  // property bool barOnTop: true
 
   anchors {
-    top: barOnTop
+    top: Conf.barOnTop
     left: true
     right: true
-    bottom: !barOnTop
+    bottom: !Conf.barOnTop
   }
 
-  implicitHeight: barHeight
+  implicitHeight: Conf.barHeight
   margins {
-    top: topMarge
+    top: Conf.topMarge
     left: 15
     right: 15
-    bottom: topMarge
+    bottom: Conf.topMarge
   }
 
   color: "transparent"
@@ -43,16 +46,16 @@ PanelWindow {
     color: 'transparent'
 
     Rectangle {
-      visible: showLine
+      visible: Conf.showLine
       anchors {
         left: parent.left
         right: parent.right
         verticalCenter: parent.verticalCenter
       }
-      height: widgetHeight / 4
-      color: accentColor
+      height: Conf.widgetHeight / 4
+      color: Conf.accentColor
       opacity: 0.8
-      border.color: mainColor
+      border.color: Conf.mainColor
       border.width:1
 
     }
@@ -93,40 +96,7 @@ PanelWindow {
 
       // Clock
       //
-      Rectangle{
-        color: mainColor
-        width: dateRow.width
-        height: widgetHeight
-        radius: rad
-        border.color: mainBColor
-
-        Row {
-          id: dateRow
-          anchors.centerIn: parent
-          padding: 10
-
-          Text {
-            id: timeDisp
-            property string cTime: "..."
-
-
-            text: cTime + " \udb82\udd54"
-            color: txtColor
-            font.pixelSize: fontSize
-
-            Timer {
-              interval: 1000
-              running: true
-              repeat: true
-
-              onTriggered: {
-                var date = new Date()
-                timeDisp.cTime = Qt.formatTime(date, "HH:mm")
-              }
-            }
-          }
-        }
-      }
+      Widgets.Clock {}
     }
   }
 }

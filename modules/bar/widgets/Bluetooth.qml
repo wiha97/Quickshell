@@ -1,7 +1,7 @@
 import QtQuick
 import Quickshell
 import Quickshell.Bluetooth
-
+import "root:/"
 
 Container {
   property var devices: Bluetooth.devices
@@ -19,14 +19,14 @@ Container {
       Text {
         anchors.verticalCenter: parent
         color: "white"
-        font.pixelSize: fontSize
+        font.pixelSize: Conf.fontSize
         text: modelData.connected ? modelData.battery * 100 + "%" : ""
       }
     }
 
     Text {
-      color: txtColor
-      font.pixelSize: fontSize
+      color: Conf.txtColor
+      font.pixelSize: Conf.fontSize
       text: "\udb80\udcaf"
     }
   }

@@ -1,16 +1,17 @@
 import QtQuick
 import Quickshell
 import Quickshell.Services.SystemTray
+import "root:/"
 
 // Systray
 //
-Rectangle{
+Container {
   visible: SystemTray.items.values.length === 0 ? false : true
-  color: mainColor
+  // color: mainColor
   width: sysRow.width
-  height: widgetHeight
-  radius: rad
-  border.color: mainBColor
+  height: Conf.widgetHeight
+  // radius: rad
+  // border.color: mainBColor
 
   Row {
     id: sysRow
@@ -23,8 +24,8 @@ Rectangle{
       model: SystemTray.items
 
       Rectangle {
-        width: fontSize
-        height: fontSize
+        width: Conf.fontSize
+        height: Conf.fontSize
         color: "transparent"
 
         Image {
