@@ -19,6 +19,7 @@ Rectangle {
   //
   Component.onCompleted: context.fPrintCheck();
 
+  //  TODO: Dynamically pick WP at random from ~/Pictures/wallpapers
   Image {
     id: img
     source: "/home/tux/Pictures/Wallpapers/Cachy depths 5K.png"
