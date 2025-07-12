@@ -1,8 +1,12 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls.Fusion
+import Quickshell
 import Quickshell.Wayland
 import Qt5Compat.GraphicalEffects
+import "root:/modules/bar/widgets"
+// import qs.modules
+// import "root:/modules" as Modules
 
 Rectangle {
   id: root
@@ -28,11 +32,24 @@ Rectangle {
   }
   Rectangle {
     anchors.fill: parent
-    color: "black"
-    opacity: 0.6
+    color: "transparent"
+    height: 50
+    width: parent.width
+    Battery {
+      anchors {
+        bottom: parent.bottom
+        right: parent.right
+      }
+      tColor: "white"
+    }
   }
+  // Rectangle {
+  //   anchors.fill: parent
+  //   color: "black"
+  //   opacity: 0.6
+  // }
 
-  //  Incase of bork
+  //  In case of bork
   //
   // Button {
   //   text: "abort!"
@@ -121,7 +138,8 @@ Rectangle {
           width: fprLab.width
           height: fprLab.height / 1.5
           color: "transparent"
-          border.color: root.context.fPrintFail ? "red" : "white"
+          property string col: root.context.fPrintFail ? "red" : "white"
+          border.color: root.context.fPrintSuccess ? "limegreen" : col
           border.width: 3
           radius: 25
           Label {
@@ -129,18 +147,23 @@ Rectangle {
             anchors.centerIn: parent
             padding: 10
             font.pixelSize: 80
-            color: root.context.fPrintFail ? "red" : "white"
+            property string col: root.context.fPrintFail ? "red" : "white"
+            color: root.context.fPrintSuccess ? "limegreen" : col
             text: "\uee40"
+          }
+
+          MouseArea {
+            anchors.fill: parent
+            onClicked: context.fPrintCheck();
           }
         }
         Label {
           visible: root.context.fPrintFail ? true : false
           anchors.horizontalCenter: parent.horizontalCenter
           color: "red"
-          text: "Timed out"
+          text: "Try again!"
         }
       }
     }
   }
-
 }

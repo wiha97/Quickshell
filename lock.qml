@@ -1,6 +1,9 @@
 import QtQuick
 import Quickshell
 import Quickshell.Wayland
+import "./modules/lockscreen/"
+import "./modules/bar/"
+import "./modules/bar/widgets/"
 
 ShellRoot {
   LockContext {
@@ -24,6 +27,12 @@ ShellRoot {
         anchors.fill: parent
         context: lockContext
       }
+      // Battery{
+      //   anchors {
+      //     bottom: true
+      //
+      //   }
+      // }
     }
   }
 }

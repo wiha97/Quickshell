@@ -12,8 +12,30 @@ Scope {
 	property bool unlockInProgress: false
   property bool showFailure: false
   property bool fPrintFail: false
+  property bool fPrintSuccess: false
 
   onCurrentTextChanged: showFailure = false;
+  onFPrintFailChanged: fPrintTimer.start();
+  onFPrintSuccessChanged: fPrintTimer.start();
+  Timer {
+    id: fPrintTimer
+    interval: 500
+    running: false
+    repeat: false
+    property int count: 3
+
+    onTriggered: {
+      if (fPrintSuccess)
+        unlocked();
+      else if (count <= 0) {
+        fPrintCheck();
+      }
+      else {
+        count--;
+        fPrintTimer.start();
+      }
+    }
+  }
 
   function tryUnlock() {
     if (currentText === "") {
@@ -23,6 +45,7 @@ Scope {
     pwdPam.start();
   }
   function fPrintCheck() {
+    fPrintFail = false;
     fprPam.start();
   }
 
@@ -40,7 +63,8 @@ Scope {
 
     onCompleted: result => {
       if (result == PamResult.Success) {
-        root.unlocked();
+        root.fPrintSuccess = true
+        // root.unlocked();
       }
       else {
         root.currentText = "";
