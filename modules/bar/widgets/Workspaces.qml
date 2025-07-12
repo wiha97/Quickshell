@@ -44,15 +44,22 @@ Container {
             color: txtColor
           }
 
-          Repeater {
-            model: modelData.toplevels
-
-            Text {
-              color: "white"
-              text: "*"
-              font.pixelSize: fontSize
-            }
+          Text {
+            // anchors.verticalCenter: parent.verticalCenter
+            text: "["+modelData.toplevels.values.length+"]"
+            color: secTxtColor
+            font.pixelSize: fontSize * 0.5
           }
+
+          // Repeater {
+          //   model: modelData.toplevels
+          //
+          //   Text {
+          //     color: secTxtColor
+          //     text: "*"
+          //     font.pixelSize: fontSize * 0.5
+          //   }
+          // }
         }
       }
     }
