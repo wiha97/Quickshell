@@ -1,6 +1,5 @@
 import QtQuick
 import Quickshell
-import "root:/"
 
 Container {
   width: dateRow.width
@@ -15,8 +14,8 @@ Container {
 
 
    text: cTime + " \udb82\udd54"
-   color: Conf.txtColor
-   font.pixelSize: Conf.fontSize
+   color: txtColor
+   font.pixelSize: fontSize
 
    Timer {
      interval: 1000

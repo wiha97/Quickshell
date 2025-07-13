@@ -31,24 +31,27 @@ Rectangle {
     radius: 40
     anchors.fill: parent
   }
-  Rectangle {
-    anchors.fill: parent
-    color: "transparent"
-    height: 50
-    width: parent.width
-    Battery {
-      anchors {
-        bottom: parent.bottom
-        right: parent.right
-      }
-      tColor: "white"
-    }
-  }
   // Rectangle {
   //   anchors.fill: parent
   //   color: "black"
   //   opacity: 0.6
   // }
+  Rectangle {
+    anchors.fill: parent
+    color: "transparent"
+    height: statusRow.height
+    width: parent.width
+    Row {
+      id: statusRow
+      anchors {
+        bottom: parent.bottom
+        right: parent.right
+      }
+      Battery {
+        accentColor: "white"
+      }
+    }
+  }
 
   //  In case of bork
   //

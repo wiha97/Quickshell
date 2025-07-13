@@ -1,4 +1,5 @@
 //@ pragma UseQApplication
+// ^ Needed for systray popup
 
 import QtQuick
 import Quickshell
@@ -12,15 +13,7 @@ ShellRoot {
     active: true
     property int hgt: 50
     sourceComponent: Bar {
-      // Conf.barHeight: Hyprland.workspaces.values.length < 8 ? hgt : hgt * 0.8
-      // showLine: false
+      barHeight: Hyprland.workspaces.values.length < 8 ? hgt : hgt * 0.8
     }
   }
-  // Loader {
-  //   active: Hyprland.workspaces.values.length > 8 ? true : false
-  //   sourceComponent: SecBar {
-  //     barOnTop: false
-  //     barHeight: 40
-  //   }
-  // }
 }

@@ -9,33 +9,33 @@ import "root:/"
 PanelWindow {
   id: panel
 
-  // property int barHeight: Conf.barHeight // Default: 50
-  // property int widgetHeight: barHeight / 1.4
-  // property int rad: widgetHeight / 2
-  // property int fontSize: barHeight / 2
-  // property int topMarge: 10
-  // property string mainColor: "#272727"
-  // property string accentColor: "#32cd32"
-  // property string mainBColor: accentColor
-  // property string secBColor: accentColor
-  // property string txtColor: accentColor
-  // property string secTxtColor: txtColor
-  // property bool showLine: true
-  // property bool barOnTop: true
+  property int barHeight: Conf.barHeight // Default: 50
+  property int widgetHeight: barHeight / 1.4
+  property int rad: widgetHeight / 2
+  property int fontSize: barHeight / 2
+  property int topMarge: 10
+  property string mainColor: Conf.mainColor
+  property string accentColor: Conf.accentColor
+  property string mainBColor: accentColor
+  property string secBColor: accentColor
+  property string txtColor: accentColor
+  property string secTxtColor: txtColor
+  property bool showLine: true
+  property bool barOnTop: true
 
   anchors {
-    top: Conf.barOnTop
+    top: barOnTop
     left: true
     right: true
-    bottom: !Conf.barOnTop
+    bottom: !barOnTop
   }
 
-  implicitHeight: Conf.barHeight
+  implicitHeight: barHeight
   margins {
-    top: Conf.topMarge
+    top: topMarge
     left: 15
     right: 15
-    bottom: Conf.topMarge
+    bottom: topMarge
   }
 
   color: "transparent"
@@ -46,16 +46,16 @@ PanelWindow {
     color: 'transparent'
 
     Rectangle {
-      visible: Conf.showLine
+      visible: showLine
       anchors {
         left: parent.left
         right: parent.right
         verticalCenter: parent.verticalCenter
       }
-      height: Conf.widgetHeight / 4
-      color: Conf.accentColor
+      height: widgetHeight / 4
+      color: accentColor
       opacity: 0.8
-      border.color: Conf.mainColor
+      border.color: mainColor
       border.width:1
 
     }
@@ -66,7 +66,13 @@ PanelWindow {
         left: parent.left
         verticalCenter: parent.verticalCenter
       }
-      Widgets.Titlebar {}
+      Widgets.Titlebar {
+        mainColor: panel.mainColor
+        accentColor: panel.accentColor
+        widgetHeight: panel.widgetHeight
+        rad: panel.rad
+        fontSize: panel.fontSize
+      }
     }
 
 
@@ -76,6 +82,11 @@ PanelWindow {
       anchors.centerIn: parent
 
       Widgets.Workspaces {
+        mainColor: panel.mainColor
+        accentColor: panel.accentColor
+        widgetHeight: panel.widgetHeight
+        rad: panel.rad
+        fontSize: panel.fontSize
         // visible: Hyprland.workspaces.values.length <= 8 ? true : false
       }
     }
@@ -90,13 +101,37 @@ PanelWindow {
         verticalCenter: parent.verticalCenter
       }
 
-      Widgets.Systray {}
-      Widgets.Bluetooth {}
-      Widgets.Battery {}
+      Widgets.Systray {
+        mainColor: panel.mainColor
+        accentColor: panel.accentColor
+        widgetHeight: panel.widgetHeight
+        rad: panel.rad
+        fontSize: panel.fontSize
+      }
+      Widgets.Bluetooth {
+        mainColor: panel.mainColor
+        accentColor: panel.accentColor
+        widgetHeight: panel.widgetHeight
+        rad: panel.rad
+        fontSize: panel.fontSize
+      }
+      Widgets.Battery {
+        mainColor: panel.mainColor
+        accentColor: panel.accentColor
+        widgetHeight: panel.widgetHeight
+        rad: panel.rad
+        fontSize: panel.fontSize
+      }
 
       // Clock
       //
-      Widgets.Clock {}
+      Widgets.Clock {
+        mainColor: panel.mainColor
+        accentColor: panel.accentColor
+        widgetHeight: panel.widgetHeight
+        rad: panel.rad
+        fontSize: panel.fontSize
+      }
     }
   }
 }

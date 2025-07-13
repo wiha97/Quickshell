@@ -8,7 +8,7 @@ import "root:/"
 //
 Container {
   width: powRow.width
-  property string tColor: Conf.txtColor
+  // property string tColor: Conf.txtColor
 
   Row {
     id: powRow
@@ -24,9 +24,9 @@ Container {
         color: "transparent"
         Text {
           id: batTxt
-          font.pixelSize: Conf.fontSize
+          font.pixelSize: fontSize
           text: "pwr"
-          color: tColor
+          color: txtColor
           anchors.centerIn: parent
           Timer {
             interval: 1000

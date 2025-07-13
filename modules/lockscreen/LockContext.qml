@@ -22,7 +22,7 @@ Scope {
     interval: 500
     running: false
     repeat: false
-    property int count: 3
+    property int count: 6
 
     onTriggered: {
       if (fPrintSuccess)
