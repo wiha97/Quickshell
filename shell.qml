@@ -11,9 +11,14 @@ ShellRoot {
 
   Loader {
     active: true
-    property int hgt: 50
+    property int hgt: Conf.barHeight
     sourceComponent: Bar {
-      barHeight: Hyprland.workspaces.values.length < 8 ? hgt : hgt * 0.8
+      barHeight: Hyprland.workspaces.values.length < 7 ? hgt : hgt * 0.8
     }
+  }
+
+  Loader {
+    active: true
+    sourceComponent: Dash {}
   }
 }
