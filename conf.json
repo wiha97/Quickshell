@@ -1,0 +1,13 @@
+{
+  "barHeight": 50,
+  "widgetHeight": 50,
+  "margin": 10,
+  "mainColor": "#272727",
+  "accentColor": "#32cd32",
+  "mainBColor": null,
+  "secBColor": null,
+  "txtColor": null,
+  "secTxtColor": null,
+  "showLine": true,
+  "barOnTop": true
+}

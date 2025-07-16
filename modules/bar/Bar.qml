@@ -1,7 +1,7 @@
 import QtQuick
 import Quickshell
 import Quickshell.Hyprland
-import "./widgets" as Widgets
+import "root:/modules/widgets/" as Widgets
 import QtQuick.Effects
 import "root:/"
 
@@ -9,19 +9,25 @@ import "root:/"
 PanelWindow {
   id: panel
 
+  function compare(local, conf){
+    if(local === conf){
+      return conf;
+    }
+  }
+
   property int barHeight: Conf.barHeight // Default: 50
   property int widgetHeight: barHeight / 1.4
   property int rad: widgetHeight / 2
   property int fontSize: barHeight / 2
-  property int topMarge: 10
+  property int topMarge: Conf.topMarge
   property string mainColor: Conf.mainColor
   property string accentColor: Conf.accentColor
-  property string mainBColor: accentColor
-  property string secBColor: accentColor
-  property string txtColor: accentColor
-  property string secTxtColor: txtColor
-  property bool showLine: true
-  property bool barOnTop: true
+  property string mainBColor: Conf.mainBColor
+  property string secBColor: Conf.secBColor
+  property string txtColor: Conf.txtColor
+  property string secTxtColor: Conf.secTxtColor
+  property bool showLine: Conf.showLine
+  property bool barOnTop: Conf.barOnTop
 
   anchors {
     top: barOnTop
@@ -67,11 +73,7 @@ PanelWindow {
         verticalCenter: parent.verticalCenter
       }
       Widgets.Titlebar {
-        mainColor: panel.mainColor
-        accentColor: panel.accentColor
-        widgetHeight: panel.widgetHeight
-        rad: panel.rad
-        fontSize: panel.fontSize
+        parentId: panel
       }
     }
 
@@ -82,12 +84,7 @@ PanelWindow {
       anchors.centerIn: parent
 
       Widgets.Workspaces {
-        mainColor: panel.mainColor
-        accentColor: panel.accentColor
-        widgetHeight: panel.widgetHeight
-        rad: panel.rad
-        fontSize: panel.fontSize
-        // visible: Hyprland.workspaces.values.length <= 8 ? true : false
+        parentId: panel
       }
     }
 
@@ -102,35 +99,20 @@ PanelWindow {
       }
 
       Widgets.Systray {
-        mainColor: panel.mainColor
-        accentColor: panel.accentColor
-        widgetHeight: panel.widgetHeight
-        rad: panel.rad
-        fontSize: panel.fontSize
+        parentId: panel
       }
       Widgets.Bluetooth {
-        mainColor: panel.mainColor
-        accentColor: panel.accentColor
-        widgetHeight: panel.widgetHeight
-        rad: panel.rad
-        fontSize: panel.fontSize
+        parentId: panel
+      }
+      Widgets.PowPro {
+        parentId: panel
       }
       Widgets.Battery {
-        mainColor: panel.mainColor
-        accentColor: panel.accentColor
-        widgetHeight: panel.widgetHeight
-        rad: panel.rad
-        fontSize: panel.fontSize
+        parentId: panel
       }
 
-      // Clock
-      //
       Widgets.Clock {
-        mainColor: panel.mainColor
-        accentColor: panel.accentColor
-        widgetHeight: panel.widgetHeight
-        rad: panel.rad
-        fontSize: panel.fontSize
+        parentId: panel
       }
     }
   }

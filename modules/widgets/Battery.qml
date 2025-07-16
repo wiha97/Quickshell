@@ -25,7 +25,7 @@ Container {
         Text {
           id: batTxt
           font.pixelSize: fontSize
-          text: "pwr"
+          text: "\udb80\udc83"
           color: txtColor
           anchors.centerIn: parent
           Timer {
