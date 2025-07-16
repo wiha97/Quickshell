@@ -4,7 +4,7 @@ import QtQuick.Controls.Fusion
 import Quickshell
 import Quickshell.Wayland
 import Qt5Compat.GraphicalEffects
-import "root:/modules/bar/widgets"
+import "root:/modules/widgets"
 // import qs.modules
 // import "root:/modules" as Modules
 
@@ -48,7 +48,8 @@ Rectangle {
         right: parent.right
       }
       Battery {
-        accentColor: "white"
+        txtColor: "white"
+        mainBColor: "white"
       }
     }
   }

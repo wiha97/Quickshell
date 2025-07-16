@@ -15,7 +15,7 @@ Scope {
   property bool fPrintSuccess: false
 
   onCurrentTextChanged: showFailure = false;
-  onFPrintFailChanged: fPrintTimer.start();
+  // onFPrintFailChanged: fPrintTimer.start();
   onFPrintSuccessChanged: fPrintTimer.start();
   Timer {
     id: fPrintTimer
