@@ -1,9 +1,9 @@
 import QtQuick
 import Quickshell
 import Quickshell.Wayland
-import "./modules/lockscreen/"
-import "./modules/bar/"
-import "./modules/bar/widgets/"
+import qs.modules.lockscreen
+import qs.modules.bar
+import qs.modules.widgets
 
 ShellRoot {
   LockContext {

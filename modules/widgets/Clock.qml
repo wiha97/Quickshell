@@ -1,6 +1,6 @@
 import QtQuick
 import Quickshell
-import "root:/modules/windows" as Windows
+import qs.modules.windows as Windows
 
 Container {
   width: dateRow.width

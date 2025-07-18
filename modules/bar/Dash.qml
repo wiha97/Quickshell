@@ -1,6 +1,8 @@
 import QtQuick
 import Quickshell
-import "root:/"
+import qs
+import qs.modules.widgets
+import qs.modules.widgets.assets
 
 PanelWindow {
   property string mainColor: Conf.mainColor
@@ -11,6 +13,7 @@ PanelWindow {
 
   implicitHeight: dashHeight
   implicitWidth: dashWidth
+  exclusionMode: ExclusionMode.Ignore
 
   anchors {
     bottom: true

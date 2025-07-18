@@ -3,7 +3,7 @@
 
 import QtQuick
 import Quickshell
-import "./modules/bar/"
+import qs.modules.bar
 import Quickshell.Hyprland
 
 ShellRoot {

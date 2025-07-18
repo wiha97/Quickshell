@@ -1,9 +1,9 @@
 import QtQuick
 import Quickshell
 import Quickshell.Hyprland
-import "root:/modules/widgets/" as Widgets
+import qs.modules.widgets as Widgets
 import QtQuick.Effects
-import "root:/"
+import qs
 
 
 PanelWindow {

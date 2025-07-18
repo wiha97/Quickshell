@@ -4,9 +4,7 @@ import QtQuick.Controls.Fusion
 import Quickshell
 import Quickshell.Wayland
 import Qt5Compat.GraphicalEffects
-import "root:/modules/widgets"
-// import qs.modules
-// import "root:/modules" as Modules
+import qs.modules.widgets
 
 Rectangle {
   id: root

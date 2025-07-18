@@ -1,7 +1,7 @@
 import QtQuick
 import Quickshell
 import Quickshell.Hyprland
-import "root:/modules/windows"
+import qs.modules.windows
 
 Container {
   width: activeWinTxt.width
