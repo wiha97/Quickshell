@@ -52,7 +52,6 @@ Container {
             anchor.onAnchoring: {
               const window = mArea.QsWindow.window
               const widgetRect = window.contentItem.mapFromItem(mArea, 0, mArea.height, mArea.width, mArea.height);
-              console.log("open plz");
 
               menuAnchor.anchor.rect = widgetRect;
             }
