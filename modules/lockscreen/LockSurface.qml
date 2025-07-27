@@ -15,7 +15,7 @@ Rectangle {
 
   // Ugly "solution" for non-awkward fingerprint unlock
   //
-  Component.onCompleted: context.fPrintCheck();
+  // Component.onCompleted: context.fPrintCheck();
 
   //  TODO: Dynamically pick WP at random from ~/Pictures/wallpapers
   Image {
@@ -28,6 +28,11 @@ Rectangle {
     source: img
     radius: 40
     anchors.fill: parent
+  }
+
+  MouseArea {
+    anchors.fill: parent
+    onClicked: context.fPrintCheck();
   }
   // Rectangle {
   //   anchors.fill: parent
@@ -153,11 +158,6 @@ Rectangle {
             property string col: root.context.fPrintFail ? "red" : "white"
             color: root.context.fPrintSuccess ? "limegreen" : col
             text: "\uee40"
-          }
-
-          MouseArea {
-            anchors.fill: parent
-            onClicked: context.fPrintCheck();
           }
         }
         Label {
