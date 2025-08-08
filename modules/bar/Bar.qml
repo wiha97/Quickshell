@@ -16,11 +16,16 @@ PanelWindow {
   }
 
   property int barHeight: Conf.barHeight // Default: 50
+  property int barWidth: Conf.barWidth
+  property int lineHeight: Conf.lineHeight
   property int widgetHeight: barHeight / 1.4
   property int rad: widgetHeight / 2
   property int fontSize: barHeight / 2
   property int topMarge: Conf.topMarge
+  property int sideMarge: Conf.sideMarge
   property string mainColor: Conf.mainColor
+  property string secColor: Conf.secColor
+  property string lineColor: Conf.lineColor
   property string accentColor: Conf.accentColor
   property string mainBColor: Conf.mainBColor
   property string secBColor: Conf.secBColor
@@ -31,16 +36,17 @@ PanelWindow {
 
   anchors {
     top: barOnTop
-    left: true
-    right: true
+    // left: true
+    // right: true
     bottom: !barOnTop
   }
 
   implicitHeight: barHeight
+  implicitWidth: barWidth
   margins {
     top: topMarge
-    left: 15
-    right: 15
+    left: sideMarge
+    right: sideMarge
     bottom: topMarge
   }
 
@@ -58,10 +64,11 @@ PanelWindow {
         right: parent.right
         verticalCenter: parent.verticalCenter
       }
-      height: widgetHeight / 4
-      color: accentColor
+      height: lineHeight
+      color: lineColor
       opacity: 0.8
-      border.color: mainColor
+      radius: Conf.rad
+      border.color: lineColor
       border.width:1
 
     }
@@ -104,9 +111,9 @@ PanelWindow {
       Widgets.Bluetooth {
         parentId: panel
       }
-      Widgets.PowPro {
-        parentId: panel
-      }
+      // Widgets.PowPro {
+      //   parentId: panel
+      // }
       Widgets.Battery {
         parentId: panel
       }

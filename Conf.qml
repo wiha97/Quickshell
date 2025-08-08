@@ -23,11 +23,16 @@ Singleton {
   }
 
   property int barHeight: job.barHeight ? job.barHeight : 50 // Default: 50
+  property int barWidth: job.barWidth ? job.barWidth : Screen.width
   property int widgetHeight: getVal(job.widgetHeight, barHeight / 1.4)
+  property int lineHeight: getVal(job.lineHeight, widgetHeight / 4)
   property int rad: job.rad ? job.rad : widgetHeight / 2
   property int fontSize: barHeight / 2
-  property int topMarge: getVal(job.margin, 10)
-  property string mainColor: getVal(job.mainColor, "red")
+  property int topMarge: getVal(job.topMargin, 10)
+  property int sideMarge: getVal(job.sideMargin, 15)
+  property string mainColor: getVal(job.mainColor, "#272727")
+  property string secColor: getVal(job.secColor, "#202020")
+  property string lineColor: getVal(job.lineColor, mainColor)
   property string accentColor: getVal(job.accentColor, "dodgerblue")
   property string mainBColor: getVal(job.mainBColor, accentColor)
   property string secBColor: getVal(job.secBColor, accentColor)
