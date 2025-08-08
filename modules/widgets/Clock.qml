@@ -1,6 +1,5 @@
 import QtQuick
 import Quickshell
-import qs.modules.windows as Windows
 
 Container {
   width: dateRow.width
@@ -28,19 +27,6 @@ Container {
           timeDisp.cTime = Qt.formatTime(date, "HH:mm")
         }
       }
-    }
-  }
-  MouseArea {
-    anchors.fill: parent
-    onClicked: popup.visible = true;
-  }
-
-  Windows.Launcher {
-    id: popup
-    anchors {
-      top: parent.top
-      right: parent.right
-      left: parent.left
     }
   }
 }

@@ -1,7 +1,6 @@
 import QtQuick
 import Quickshell
 import Quickshell.Hyprland
-import qs.modules.windows
 import qs
 
 Container {
@@ -27,8 +26,5 @@ Container {
     font.pixelSize: fSize
     text: active.workspace.focused ? tFunc() : "Hyprland/Quickshell"
     // text: "// TODO: Finish this panel"
-  }
-  Launcher {
-    id: popup
   }
 }
