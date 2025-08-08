@@ -35,57 +35,59 @@ PanelWindow {
     anchors.fill: parent
     topRightRadius: rad
     topLeftRadius: rad
-    color: mainColor
+    color: "transparent"
     border.color: mainBColor
     border.width: 2
     clip: true
+
+    Rectangle {
+      anchors.fill: parent
+      color: mainColor
+    }
 
     MouseArea {
       anchors.fill: parent
       hoverEnabled: true
 
-      onEntered: margins.bottom = -10;
+      onEntered: margins.bottom = -5;
       onExited: margins.bottom = -dashHeight+10;
     }
-    Item {
-      clip: true
+    RowLayout{
       anchors.fill: parent
-      RowLayout{
-        anchors.fill: parent
-        Rectangle {
-          topLeftRadius: rad
-          width: 150
-          Layout.fillHeight: true
-          // height: parent.height
-          color: "transparent"
-          ColumnLayout {
-            // property QtObject activeView
-            anchors.top: parent.top
-            width: parent.width
-            DashBtn {
-              // topLeftRadius: rad
-              title: "Overview"
-              view: "../widgets/Titlebar.qml"
-              loader: viewLoader
-            }
-            DashBtn {
-              title: "Apps"
-              view: "../widgets/Apps.qml"
-              loader: viewLoader
-            }
-            DashBtn {
-              title: "Settings"
-              view: "../widgets/Settings.qml"
-              loader: viewLoader
-            }
+      Rectangle {
+        // topLeftRadius: rad
+        width: 150
+        Layout.fillHeight: true
+        // height: parent.height
+        color: "transparent"
+        ColumnLayout {
+          // property QtObject activeView
+          anchors.top: parent.top
+          width: parent.width
+          DashBtn {
+            // topLeftRadius: rad
+            title: "Overview"
+            view: "../widgets/Titlebar.qml"
+            loader: viewLoader
+          }
+          DashBtn {
+            title: "Apps"
+            view: "../widgets/Apps.qml"
+            loader: viewLoader
+          }
+          DashBtn {
+            title: "Settings"
+            view: "../widgets/Settings.qml"
+            loader: viewLoader
           }
         }
-        Loader {
-          id: viewLoader
-          source: "../widgets/Apps.qml"
-          Layout.fillWidth: true
-          Layout.fillHeight: true
-        }
+      }
+      Loader {
+        Layout.margins: 10
+        id: viewLoader
+        source: "../widgets/Settings.qml"
+        Layout.fillWidth: true
+        Layout.fillHeight: true
       }
     }
   }
