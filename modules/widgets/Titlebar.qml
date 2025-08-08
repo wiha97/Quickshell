@@ -2,6 +2,7 @@ import QtQuick
 import Quickshell
 import Quickshell.Hyprland
 import qs.modules.windows
+import qs
 
 Container {
   width: activeWinTxt.width
@@ -26,10 +27,6 @@ Container {
     font.pixelSize: fSize
     text: active.workspace.focused ? tFunc() : "Hyprland/Quickshell"
     // text: "// TODO: Finish this panel"
-  }
-  MouseArea {
-    anchors.fill: parent
-    onClicked: popup.visible = true;
   }
   Launcher {
     id: popup

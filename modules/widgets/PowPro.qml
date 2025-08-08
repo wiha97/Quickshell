@@ -8,6 +8,6 @@ Container {
     id: pow
     color: txtColor
     anchors.centerIn: parent
-    text: PowerProfiles.hasPerformanceProfile
+    text: PowerProfiles.profile
   }
 }

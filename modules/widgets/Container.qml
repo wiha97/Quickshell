@@ -5,6 +5,7 @@ import qs
 Rectangle {
   property QtObject parentId: Conf
   property string mainColor: parentId.mainColor
+  property string secColor: parentId.secColor
   property string accentColor: parentId.accentColor
   property string txtColor: parentId.txtColor
   property string mainBColor: parentId.mainBColor

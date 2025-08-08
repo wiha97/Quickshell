@@ -21,8 +21,8 @@ Container {
         width: barHeight * 2
         height: widgetHeight
         radius: rad / 2
-        color: "#202020"
-        border.color: modelData.active || wId === "-98" ? secBColor : "#202020"
+        color: secColor
+        border.color: modelData.active || wId === "-98" ? secBColor : secColor
         border.width: 2
 
         MouseArea {
