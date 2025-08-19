@@ -14,7 +14,7 @@ Rectangle {
     if(loader.source.toString() === "" || !view.match(loader.source))
       return "transparent"
     console.log(loader.source.length + " " + view.length)
-    return Conf.accentColor
+    return Conf.hilightColor
   }
   color: checkMatch();
   Component.onCompleted: console.log(":< "+loader.source.toString())

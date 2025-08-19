@@ -1,17 +1,18 @@
 {
-  "barHeight": 50,
+  "barHeight": 40,
   "widgetHeight": 50,
-  "lineHeight": 5,
+  "lineHeight": 10,
   "topMargin": 0,
   "sideMargin": 15,
   "mainColor": "#05272727",
   "secColor": "#05ffffff",
   "lineColor": null,
-  "accentColor": "#0532cd32",
+  "accentColor": "#051e90ff",
+  "hilightColor": "#4D1e90ff",
   "mainBColor": null,
   "secBColor": "#CCffffff",
   "txtColor": "white",
   "secTxtColor": "white",
-  "showLine": false,
+  "showLine": true,
   "barOnTop": true
 }

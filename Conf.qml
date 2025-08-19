@@ -34,6 +34,7 @@ Singleton {
   property string secColor: getVal(job.secColor, "#202020")
   property string lineColor: getVal(job.lineColor, mainColor)
   property string accentColor: getVal(job.accentColor, "dodgerblue")
+  property string hilightColor: getVal(job.hilightColor, "dodgerblue")
   property string mainBColor: getVal(job.mainBColor, accentColor)
   property string secBColor: getVal(job.secBColor, accentColor)
   property string txtColor: getVal(job.txtColor, accentColor)

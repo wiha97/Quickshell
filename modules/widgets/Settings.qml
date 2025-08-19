@@ -173,10 +173,17 @@ Rectangle {
             }
           }
           ConfColor {
-            confName: "Acc Color"
+            confName: "Accent Color"
             confColor: Conf.accentColor
             function setCol(colr){
               Conf.accentColor = colr;
+            }
+          }
+          ConfColor {
+            confName: "Highlight Color"
+            confColor: Conf.hilightColor
+            function setCol(colr){
+              Conf.hilightColor = colr;
             }
           }
           ConfColor {
@@ -187,7 +194,7 @@ Rectangle {
             }
           }
           ConfColor {
-            confName: "Sec Border Color"
+            confName: "Secondary Border Color"
             confColor: Conf.secBColor
             function setCol(colr){
               Conf.secBColor = colr;
@@ -201,7 +208,7 @@ Rectangle {
             }
           }
           ConfColor {
-            confName: "Sec Text Color"
+            confName: "Secondary Text Color"
             confColor: Conf.secTxtColor
             function setCol(colr){
               Conf.secTxtColor = colr;
