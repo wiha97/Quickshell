@@ -20,7 +20,10 @@ Container {
       color: "transparent"
       Image {
         anchors.fill: parent
-        source: Quickshell.iconPath(Conf.getIcon(active.wayland.appId.toLowerCase()));
+        property string app: active.wayland.appId
+        source: Quickshell.iconPath(
+          Conf.getIcon(active.workspace.focused ?
+          app.toLowerCase() : "distro"));
       }
     }
     Text {

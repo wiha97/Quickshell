@@ -19,12 +19,13 @@ Container {
 
       Rectangle {
         property string wId: modelData.id
-        width: barHeight * 2
-        height: widgetHeight
+        // width: barHeight * 2
+        height: widgetHeight+2
+        width: 15+row.width
         radius: rad / 2
         color: secColor
         border.color: modelData.active || wId === "-98" ? secBColor : secColor
-        border.width: 2
+        border.width: 1
 
         MouseArea {
           anchors.fill: parent
@@ -33,45 +34,26 @@ Container {
                                      Hyprland.dispatch("workspace " + modelData.id)
         }
 
-        Column {}
         Row {
-
+          id: row
+          spacing: 5
           anchors.centerIn: parent
           Text {
-            text: wId === "-98" ? "\udb85\udce7" : modelData.name
+            text: wId === "-98" ? "\udb85\udce7" : "["+modelData.name+"]"
             font.pixelSize: fontSize
             color: txtColor
           }
-
-          Text {
-            // anchors.verticalCenter: parent.verticalCenter
-            text: "["+modelData.toplevels.values.length+"]"
-            color: secTxtColor
-            font.pixelSize: fontSize * 0.5
-          }
-
-          // Repeater {
-          //   model: modelData.toplevels
-          //
-          //   Text {
-          //     color: secTxtColor
-          //     text: "*"
-          //     font.pixelSize: fontSize * 0.5
-          //   }
-          // }
-        }
-        Row {
-          anchors.fill: parent
           Repeater {
             model: modelData.toplevels
             Rectangle {
-              width: parent.height / 2
-              height: parent.height / 2
+              property string app: modelData.wayland.appId
+              width: parent.height
+              height: parent.height
               color: "transparent"
               Image {
                 width: parent.width
                 height: parent.height
-                source: Quickshell.iconPath(Conf.getIcon(modelData.wayland.appId.toLowerCase()));
+                source: Quickshell.iconPath(Conf.getIcon(app.toLowerCase()));
                 // Component.onCompleted: getIcon();
               }
             }
@@ -80,12 +62,4 @@ Container {
       }
     }
   }
-// PopupWindow {
-  //   anchor.window: panel
-  //   anchor.rect.x: parentWindow.width / 2 - width / 2
-  //   anchor.rect.y: parentWindow.height
-  //   width: 500
-  //   height: 500
-  //   visible: true
-  // }    
 }
