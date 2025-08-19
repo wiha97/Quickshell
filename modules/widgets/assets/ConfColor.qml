@@ -12,7 +12,6 @@ Rectangle {
   width: parent.width
   height: 20
   Label {
-    width: confName.length * 10
     Text {
       text: confName
       color: Conf.secTxtColor
@@ -25,14 +24,14 @@ Rectangle {
     }
     height: parent.height
     width: 50
-    border.color: Conf.accentColor
+    border.color: "black"
     radius: 5
     color: confColor
   }
-    MouseArea {
-      anchors.fill: parent
-      onClicked: dialog.open()
-    }
+  MouseArea {
+    anchors.fill: parent
+    onClicked: dialog.open()
+  }
 
   ColorDialog {
     id: dialog

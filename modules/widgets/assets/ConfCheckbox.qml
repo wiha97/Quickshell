@@ -11,7 +11,7 @@ Rectangle {
   width: parent.width
   height: 20
   Label {
-    width: confName.length * 10
+    // width: confName.length * 10
     Text {
       text: confName
       color: Conf.secTxtColor
