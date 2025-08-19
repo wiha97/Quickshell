@@ -25,8 +25,20 @@ Singleton {
   function getIcon(app){
     // console.log(DesktopEntries.applications.values.length)
     let apps = DesktopEntries.applications;
+    switch (app) {
+      case "jetbrains-rider":
+        app = "rider";
+      case "jetbrains-idea":
+        app = "intellij";
+      case "com.github.ismaelmartinez.teams_for_linux":
+        app = "teams"
+      case "distro":
+        app = "cachyos hello"
+    }
     for(let i = 0; i < apps.values.length; i++){
       let entry = apps.values[i];
+      if(entry.name.toLowerCase().includes("cachy"))
+        console.log(entry.name)
       if(entry.name.toLowerCase().includes(app))
       {
         return entry.icon;
