@@ -13,20 +13,22 @@ Rectangle {
   ColumnLayout {
     anchors.fill: parent
 
-      TextField {
-        implicitWidth: parent.width
-        font.pixelSize: Conf.fontSize
-        horizontalAlignment: TextField.AlignHCenter
-        placeholderText: "Search..."
-        background: {
-          color: "transparent"
-        }
+    TextField {
+      hoverEnabled: false
+      implicitWidth: parent.width
+      font.pixelSize: Conf.fontSize
+      horizontalAlignment: TextField.AlignHCenter
+      placeholderText: "Search..."
+      background: {
+        color: "transparent"
       }
+    }
     ScrollView {
       Layout.fillHeight: true
       width: parent.width
-        anchors.horizontalCenter: parent.horizontalCenter
+      anchors.horizontalCenter: parent.horizontalCenter
       padding: 5
+      hoverEnabled: false
 
       GridLayout {
         // anchors.centerIn: parent

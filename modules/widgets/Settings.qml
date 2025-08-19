@@ -4,6 +4,7 @@ import QtQuick.Controls
 import QtQuick.Controls.Fusion
 import Quickshell
 import qs
+import qs.modules.widgets
 import qs.modules.widgets.assets
 
 Rectangle {
@@ -25,6 +26,7 @@ Rectangle {
       ScrollView {
         Layout.fillHeight: true
         Layout.fillWidth: true
+        hoverEnabled: false
         Column {
           width: parent.width
           spacing: 30
@@ -137,6 +139,7 @@ Rectangle {
       ScrollView {
         Layout.fillHeight: true
         Layout.fillWidth: true
+        hoverEnabled: false
         // anchors.centerIn: parent
         ScrollBar.vertical {
           visible: true
