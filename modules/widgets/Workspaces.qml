@@ -1,6 +1,7 @@
 import QtQuick
 import Quickshell
 import Quickshell.Hyprland
+import qs
 
 Container {
   width: workspaceRow.width
@@ -32,6 +33,7 @@ Container {
                                      Hyprland.dispatch("workspace " + modelData.id)
         }
 
+        Column {}
         Row {
 
           anchors.centerIn: parent
@@ -57,6 +59,23 @@ Container {
           //     font.pixelSize: fontSize * 0.5
           //   }
           // }
+        }
+        Row {
+          anchors.fill: parent
+          Repeater {
+            model: modelData.toplevels
+            Rectangle {
+              width: parent.height / 2
+              height: parent.height / 2
+              color: "transparent"
+              Image {
+                width: parent.width
+                height: parent.height
+                source: Quickshell.iconPath(Conf.getIcon(modelData.wayland.appId.toLowerCase()));
+                // Component.onCompleted: getIcon();
+              }
+            }
+          }
         }
       }
     }
