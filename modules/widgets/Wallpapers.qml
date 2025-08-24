@@ -38,10 +38,12 @@ Rectangle {
           width: Screen.width / 10
           height: Screen.height / 10
           radius: 10
-          color: "transparent"
+          color: "#A5202020"
           Image {
             anchors.fill: parent
             source: modelData
+            sourceSize.width: parent.width
+            sourceSize.height: parent.height
             asynchronous: true
           }
           MouseArea {
