@@ -68,7 +68,7 @@ PanelWindow {
       color: lineColor
       opacity: 0.8
       radius: Conf.rad
-      border.color: lineColor
+      border.color: mainBColor
       border.width:1
 
     }
@@ -109,6 +109,9 @@ PanelWindow {
         parentId: panel
       }
       Widgets.Bluetooth {
+        parentId: panel
+      }
+      Widgets.Audio {
         parentId: panel
       }
       // Widgets.PowPro {
