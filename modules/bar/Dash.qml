@@ -81,6 +81,11 @@ PanelWindow {
             loader: viewLoader
           }
           DashBtn {
+            title: "Themes"
+            view: "../widgets/Colors.qml"
+            loader: viewLoader
+          }
+          DashBtn {
             title: "Wallpapers"
             view: "../widgets/Wallpapers.qml"
             loader: viewLoader

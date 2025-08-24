@@ -1,0 +1,19 @@
+{
+  "barHeight": 40,
+  "widgetHeight": 50,
+  "lineHeight": 5,
+  "topMargin": 0,
+  "sideMargin": 15,
+  "mainColor": "#272727",
+  "secColor": "#202020",
+  "lineColor": "#32cd32",
+  "accentColor": "#32cd32",
+  "hilightColor": "#4D32cd32",
+  "mainBColor": null,
+  "secBColor": "#CC32cd32",
+  "txtColor": "#32cd32",
+  "secTxtColor": "white",
+  "showLine": true,
+  "barOnTop": true,
+  "background": "/home/tux/Pictures/Wallpapers/xbox.png"
+}

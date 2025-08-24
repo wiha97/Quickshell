@@ -9,12 +9,33 @@ Singleton {
 
   FileView {
     id: jsonFile
-    path: Qt.resolvedUrl("./conf.json")
+    path: Qt.resolvedUrl("./themes/conf.json")
 
     blockLoading: true
+    watchChanges: true
+    onFileChanged: reload()
+  }
+  FileView {
+    id: xboxFile
+    path: Qt.resolvedUrl("./themes/xbox.json")
+
+    blockLoading: true
+    watchChanges: true
+    onFileChanged: reload()
   }
 
-  readonly property var job: JSON.parse(jsonFile.text())
+  property var job: changeTheme("default");
+  // readonly property var job: JSON.parse(jsonFile.text())
+  readonly property var apps: DesktopEntries.applications.values
+
+  function changeTheme(theme) {
+    switch(theme){
+      case "xbox":
+        return JSON.parse(xboxFile.text());
+      case "default":
+        return(JSON.parse(jsonFile.text()));
+    }
+  }
 
   function getVal(input, value){
     if(input === null || !input)

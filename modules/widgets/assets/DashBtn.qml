@@ -13,11 +13,11 @@ Rectangle {
   function checkMatch(){
     if(loader.source.toString() === "" || !view.match(loader.source))
       return "transparent"
-    console.log(loader.source.length + " " + view.length)
+    // console.log(loader.source.length + " " + view.length)
     return Conf.hilightColor
   }
   color: checkMatch();
-  Component.onCompleted: console.log(":< "+loader.source.toString())
+  // Component.onCompleted: console.log(":< "+loader.source.toString())
   // color: view.match(loader.source) ? "#32cd32" : "transparent"
   // color: view.match(loader.source.toString()) ? "#32cd32" : "transparent"
   // color: "transparent"
