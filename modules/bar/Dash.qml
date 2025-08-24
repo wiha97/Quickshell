@@ -80,6 +80,11 @@ PanelWindow {
             view: "../widgets/Settings.qml"
             loader: viewLoader
           }
+          DashBtn {
+            title: "Wallpapers"
+            view: "../widgets/Wallpapers.qml"
+            loader: viewLoader
+          }
         }
       }
       Loader {
