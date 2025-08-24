@@ -2,7 +2,7 @@ import QtQuick
 import Quickshell
 import Quickshell.Services.UPower
 
-Container {
+WidBase {
   width: pow.width
   Text {
     id: pow

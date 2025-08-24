@@ -1,7 +1,7 @@
 import QtQuick
 import Quickshell
 
-Container {
+WidBase {
   width: dateRow.width
   Row {
     id: dateRow

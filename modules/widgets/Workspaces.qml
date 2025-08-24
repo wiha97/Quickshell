@@ -3,7 +3,7 @@ import Quickshell
 import Quickshell.Hyprland
 import qs
 
-Container {
+WidBase {
   width: workspaceRow.width
   height: barHeight
 

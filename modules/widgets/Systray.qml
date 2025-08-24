@@ -4,7 +4,7 @@ import Quickshell.Services.SystemTray
 
 // Systray
 //
-Container {
+WidBase {
   visible: SystemTray.items.values.length === 0 ? false : true
   width: sysRow.width
 

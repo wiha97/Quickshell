@@ -3,7 +3,7 @@ import Quickshell
 import Quickshell.Hyprland
 import qs
 
-Container {
+WidBase {
   width: titleRow.width
   // width: activeWinTxt.width + fontSize + 20
   property HyprlandToplevel active: Hyprland.activeToplevel
@@ -13,19 +13,7 @@ Container {
     anchors.verticalCenter: parent.verticalCenter
     anchors.centerIn: parent
     padding: 10
-    Rectangle {
-      anchors.verticalCenter: parent.verticalCenter
-      width: fontSize * 1.2
-      height: fontSize * 1.2
-      color: "transparent"
-      Image {
-        anchors.fill: parent
-        property string app: active.wayland.appId
-        source: Quickshell.iconPath(
-          Conf.getIcon(active.workspace.focused ?
-          app.toLowerCase() : "distro"));
-      }
-    }
+    spacing: 5
     Text {
       id: activeWinTxt
     anchors.verticalCenter: parent.verticalCenter
@@ -45,6 +33,19 @@ Container {
       font.pixelSize: fSize
       text: active.workspace.focused ? tFunc() : "Hyprland/Quickshell"
       // text: "// TODO: Finish this panel"
+    }
+    Rectangle {
+      anchors.verticalCenter: parent.verticalCenter
+      width: fontSize * 1.2
+      height: fontSize * 1.2
+      color: "transparent"
+      Image {
+        anchors.fill: parent
+        property string app: active.wayland.appId
+        source: Quickshell.iconPath(
+          Conf.getIcon(active.workspace.focused ?
+          app.toLowerCase() : "distro"));
+      }
     }
   }
 }

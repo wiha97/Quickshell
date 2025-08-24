@@ -6,7 +6,7 @@ import qs
 
 //  Battery
 //
-Container {
+WidBase {
   width: powRow.width
   // property string tColor: Conf.txtColor
 
@@ -34,33 +34,31 @@ Container {
             repeat: true
 
             onTriggered: {
-              let lvl = modelData.percentage * 100
-              let icon = modelData.state === 2 ? "" : "\udb81\udea5"
+              let lvl = modelData.percentage * 100;
+              let icon = modelData.state === 2 ? "" : "\udb81\udea5";
               if (lvl < 10)
-                icon += "\udb80\udc83"
+                icon += "\udb80\udc83";
               else if (lvl < 15)
-                icon += "\udb80\udc7a"
+                icon += "\udb80\udc7a";
               else if (lvl < 20)
-                icon += "\udb80\udc7b"
+                icon += "\udb80\udc7b";
               else if (lvl < 30)
-                icon += "\udb80\udc7c"
+                icon += "\udb80\udc7c";
               else if (lvl < 40)
-                icon += "\udb80\udc7d"
+                icon += "\udb80\udc7d";
               else if (lvl < 50)
-                icon += "\udb80\udc7e"
+                icon += "\udb80\udc7e";
               else if (lvl < 60)
-                icon += "\udb80\udc7f"
+                icon += "\udb80\udc7f";
               else if (lvl < 70)
-                icon += "\udb80\udc80"
+                icon += "\udb80\udc80";
               else if (lvl < 80)
-                icon += "\udb80\udc81"
+                icon += "\udb80\udc81";
               else if (lvl < 90)
-                icon += "\udb80\udc82"
+                icon += "\udb80\udc82";
               else if (lvl < 100)
-                icon += "\udb80\udc79"
-              // icon += " "
-              // batTxt.text = icon + lvl.toFixed(0) + "%"
-              batTxt.text = lvl.toFixed(0) + "% " + icon
+                icon += "\udb80\udc79";
+              batTxt.text = lvl.toFixed(0) + "% " + icon;
             }
           }
         }

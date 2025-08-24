@@ -2,7 +2,7 @@ import QtQuick
 import Quickshell
 import Quickshell.Bluetooth
 
-Container {
+WidBase {
   property var devices: Bluetooth.devices
   visible: Bluetooth.defaultAdapter.enabled ? true : false
   width: listRow.width
