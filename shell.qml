@@ -2,9 +2,12 @@
 // ^ Needed for systray popup
 
 import QtQuick
+import QtQuick.Controls
 import Quickshell
-import qs.modules.bar
+import Quickshell.Widgets
 import Quickshell.Hyprland
+import qs.modules.bar
+import qs.modules.singles
 
 ShellRoot {
   id: root
@@ -14,17 +17,29 @@ ShellRoot {
     sourceComponent: PanelWindow {
       exclusionMode: ExclusionMode.Ignore
       aboveWindows: false
-      width: Screen.width
-      // height: Screen.height
       anchors {
         top:true
         bottom: true
+        left: true
+        right: true
       }
-      Image {
-        id: img
-        source: Conf.background
+      ClippingRectangle {
         anchors.fill: parent
-        fillMode: Image.PreserveAspectCrop
+        Image {
+          id: img
+          source: Conf.background
+          anchors.fill: parent
+          fillMode: Image.PreserveAspectCrop
+        }
+      }
+      Label {
+        id: splashLab
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.bottom: parent.bottom
+        padding: 50
+        font.pixelSize: Conf.fontSize * 1.2
+        color: "#79CDBE"
+        text: HyprSplash.msg
       }
     }
   }
@@ -32,7 +47,7 @@ ShellRoot {
   Loader {
     property int hgt: Conf.barHeight
     sourceComponent: Bar {
-      barHeight: Hyprland.workspaces.values.length < 7 ? hgt : hgt * 0.8
+      // barHeight: Hyprland.workspaces.values.length < 7 ? hgt : hgt * 0.8
     }
   }
 

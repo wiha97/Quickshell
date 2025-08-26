@@ -2,6 +2,7 @@ import QtQuick
 import Quickshell
 import Quickshell.Hyprland
 import qs
+import qs.modules.singles
 
 WidBase {
   width: titleRow.width
@@ -31,7 +32,7 @@ WidBase {
       // padding: 10
       color: txtColor
       font.pixelSize: fSize
-      text: active.workspace.focused ? tFunc() : "Hyprland/Quickshell"
+      text: active.workspace.focused ? tFunc() : HyprSplash.msg
       // text: "// TODO: Finish this panel"
     }
     Rectangle {
