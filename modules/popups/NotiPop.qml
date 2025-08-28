@@ -10,7 +10,7 @@ import qs
 PanelWindow {
   property list<Notification> notes: NotificationService.noties
   visible: notes.length === 0 ? false : true
-  property list<int> notiHeights: ["60", "100", "200"]
+  property list<int> notiHeights: ["65", "100", "200"]
   // property int totalHeight: (notes.length * notiHeight) + 35 + (5 * notes.length);
   property int baseHeight: 35 + (5 * notes.length);
   property int totalHeight
@@ -225,11 +225,14 @@ PanelWindow {
             height: parent.height
             width: 460
             Row {
+              leftPadding: 5
+              topPadding: 5
               Image {
                 visible: icon || iconImg
                 source: icon ? Quickshell.iconPath(icon) : iconImg
                 width: 22
                 height: 22
+                anchors.verticalCenter: parent.verticalCenter
               }
               Text {
                 text: title
