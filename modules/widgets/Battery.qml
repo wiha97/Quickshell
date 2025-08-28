@@ -37,27 +37,27 @@ WidBase {
               let lvl = modelData.percentage * 100;
               let icon = modelData.state === 2 ? "" : "\udb81\udea5";
               if (lvl < 10)
-                icon += "\udb80\udc83";
+                icon += "󱃍";
               else if (lvl < 15)
-                icon += "\udb80\udc7a";
+                icon += "󰁺";
               else if (lvl < 20)
-                icon += "\udb80\udc7b";
+                icon += "󰁻";
               else if (lvl < 30)
-                icon += "\udb80\udc7c";
+                icon += "󰁼";
               else if (lvl < 40)
-                icon += "\udb80\udc7d";
+                icon += "󰁽";
               else if (lvl < 50)
-                icon += "\udb80\udc7e";
+                icon += "󰁾";
               else if (lvl < 60)
-                icon += "\udb80\udc7f";
+                icon += "󰁿";
               else if (lvl < 70)
-                icon += "\udb80\udc80";
+                icon += "󰂀";
               else if (lvl < 80)
-                icon += "\udb80\udc81";
+                icon += "󰂁";
               else if (lvl < 90)
-                icon += "\udb80\udc82";
+                icon += "󱈑";
               else if (lvl < 100)
-                icon += "\udb80\udc79";
+                icon += "󰁹";
               batTxt.text = lvl.toFixed(0) + "% " + icon;
             }
           }
