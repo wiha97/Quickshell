@@ -157,6 +157,7 @@ PanelWindow {
           property string bodyMsg
           property string image
           property string icon
+          property string iconImg
           Component.onCompleted: {
             let note = modelData;
             if(bodyHasImg(note.body)){
@@ -184,7 +185,7 @@ PanelWindow {
             }
             if(note.appIcon.length > 0){
               if(note.image.includes("qsimage"))
-                icon = note.image;
+                iconImg = note.image;
               else
                 icon = note.appIcon;
             } else {
@@ -225,8 +226,8 @@ PanelWindow {
             width: 460
             Row {
               Image {
-                visible: icon
-                source: icon.length < 20 ? Quickshell.iconPath(modelData.appIcon) : icon
+                visible: icon || iconImg
+                source: icon ? Quickshell.iconPath(icon) : iconImg
                 width: 22
                 height: 22
               }
