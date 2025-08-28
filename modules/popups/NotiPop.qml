@@ -23,6 +23,8 @@ PanelWindow {
   margins {
     right: 5
     bottom: 5
+    left: 5
+    top: 5
   }
   MouseArea {
     anchors.fill: parent
@@ -154,6 +156,7 @@ PanelWindow {
         model: NotificationService.noties
 
         ClippingRectangle {
+          id: notiBody
           property string title
           property string bodyMsg
           property string image
@@ -221,92 +224,101 @@ PanelWindow {
           border.color: Conf.hilightColor
           border.width: 1
           radius: 5
-          ColumnLayout{
-            height: parent.height
-            width: 460
-            Row {
-              leftPadding: 5
-              topPadding: 5
-              spacing: 5
-              Image {
-                visible: icon
-                source: Quickshell.iconPath(icon)
-                width: 22
-                height: 22
-                anchors.verticalCenter: parent.verticalCenter
-              }
-              Image {
-                visible: iconImg
-                source: iconImg
-                width: 22
-                height: 22
-                anchors.verticalCenter: parent.verticalCenter
-              }
-              Text {
-                text: title
-                // text: modelData.appName.length > 0 ? modelData.appName : modelData.summary
-                color: Conf.txtColor
-                // leftPadding: 5
-                anchors.verticalCenter: parent.verticalCenter
-                // padding: 5
-              }
-            }
-            ScrollView {
-              visible: !image
+          RowLayout {
+            anchors.fill: parent
+            ColumnLayout{
+              id: txtColumn
+              implicitWidth: parent.width - 50
               // Layout.fillWidth: true
               Layout.fillHeight: true
-              padding: 5
-              Text {
-                text: bodyMsg
-                wrapMode: Text.WordWrap
-                width: 440
-                color: Conf.secTxtColor
-                anchors.bottom: parent.bottom
-                bottomPadding: 5
+              // width: 460
+              Row {
                 leftPadding: 5
-                font.pixelSize: Conf.fontSize
-              }
-            }
-            ScrollView {
-              visible: image
-              width: parent.width
-              Layout.fillHeight: true
-              Layout.fillWidth: true
-              // ClippingRectangle {
-              //   height: img.height
-              //   radius: 15
-              //   width: img.width
+                topPadding: 5
+                spacing: 5
+                // height: 25
                 Image {
-                  id: img
-                  source: image
-                  sourceSize.height: notiHeights[2] + 70
-                  fillMode: Image.PreserveAspectCrop
-                  // anchors.horizontalCenter: parent.horizontalCenter
+                  visible: icon
+                  source: Quickshell.iconPath(icon)
+                  width: 22
+                  height: 22
+                  anchors.verticalCenter: parent.verticalCenter
                 }
-              // }
-            }
+                Image {
+                  visible: iconImg
+                  source: iconImg
+                  width: 22
+                  height: 22
+                  anchors.verticalCenter: parent.verticalCenter
+                }
+                Text {
+                  text: title
+                  // text: modelData.appName.length > 0 ? modelData.appName : modelData.summary
+                  color: Conf.txtColor
+                  // leftPadding: 5
+                  anchors.verticalCenter: parent.verticalCenter
+                  // padding: 5
+                }
+              }
+              ScrollView {
+                visible: !image
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                // padding: 5
+                Text {
+                  text: bodyMsg
+                  wrapMode: Text.WordWrap
+                  width: txtColumn.width
+                  color: Conf.secTxtColor
+                  anchors.bottom: parent.bottom
+                  bottomPadding: 5
+                  leftPadding: 5
+                  font.pixelSize: Conf.fontSize
+                }
+              }
+              ClippingRectangle {
+                id: imgView
+                Layout.fillHeight: true
+                Layout.fillWidth: true
+                visible: image
+                radius: 15
+                color: "black"
+                ScrollView {
+                  anchors.fill: parent
+                  Image {
+                    id: img
+                    source: image
+                    sourceSize.height: imgView.height
+                    sourceSize.width: imgView.width
+                    fillMode: Image.PreserveAspectCrop
+                    anchors.centerIn: parent
+                  }
+                }
+              }
 
-          }
-          Rectangle {
-            id: close
-            height: parent.height
-            width: parent.width / 8
-            color: "transparent"
-            opacity: 0.5
-            anchors.right: parent.right
-            radius: 5
-            Text {
-              text: ""
-              color: Conf.secTxtColor
-              anchors.centerIn: parent
-              font.pixelSize: 30
             }
-            MouseArea {
-              anchors.fill: parent
-              hoverEnabled: true
-              onEntered: close.color = "red";
-              onExited: close.color = "transparent";
-              onClicked: modelData.dismiss();
+            Rectangle {
+              id: close
+              Layout.fillHeight: true
+              // Layout.fillWidth: true
+              width: 50
+              color: "transparent"
+              opacity: 0.5
+              // anchors.right: parent.right
+              radius: 5
+              Text {
+                text: ""
+                color: Conf.secTxtColor
+                anchors.centerIn: parent
+                font.pixelSize: 30
+              }
+              MouseArea {
+                anchors.fill: parent
+                hoverEnabled: true
+                onEntered: close.color = "red";
+                onExited: close.color = "transparent";
+                onClicked: modelData.dismiss();
+              }
             }
           }
         }
