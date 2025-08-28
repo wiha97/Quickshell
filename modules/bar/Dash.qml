@@ -11,7 +11,7 @@ import qs.modules.widgets.assets
 PanelWindow {
   property string mainColor: Conf.mainColor
   property string mainBColor: Conf.mainBColor
-  property int dashHeight: 500
+  property int dashHeight: Screen.height / 3
   property int dashWidth: Screen.width / 2
   property int rad: 25
 
@@ -49,8 +49,19 @@ PanelWindow {
       anchors.fill: parent
       hoverEnabled: true
 
-      onEntered: margins.bottom = -5;
-      onExited: margins.bottom = -dashHeight+10;
+      onEntered: {
+        margins.bottom = -5;
+        timer.stop();
+      }
+      onExited: timer.start()
+    }
+    Timer {
+      id: timer
+      repeat: false
+      interval: 300
+      onTriggered: {
+        margins.bottom = -dashHeight+10;
+      }
     }
     RowLayout{
       anchors.fill: parent

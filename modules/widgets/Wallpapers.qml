@@ -19,36 +19,58 @@ Rectangle {
         let output = this.text.split("\n");
         for(let i = 0; i < output.length; i++) {
           if(output[i].length > 0) {
-            wps.push(Conf.wpPath + output[i]);
+            wps.push(Conf.wpPath + "/" + output[i]);
           }
         }
       }
     }
   }
 
-  ScrollView {
+
+  ColumnLayout {
     anchors.fill: parent
-    padding: 5;
-    hoverEnabled: false
-    GridLayout {
-      columns: 4
-      Repeater {
-        model: wps
-        ClippingRectangle {
-          width: Screen.width / 10
-          height: Screen.height / 10
-          radius: 10
-          color: "#A5202020"
-          Image {
-            anchors.fill: parent
-            source: modelData
-            sourceSize.width: parent.width
-            sourceSize.height: parent.height
-            asynchronous: true
-          }
-          MouseArea {
-            anchors.fill: parent
-            onClicked: Conf.background = modelData;
+    focus: true
+    TextField {
+      focus: true
+      Keys.onPressed: (event)=>{
+        console.log("Captured: ", event.text);
+        event.accepted = true;
+      }
+
+      hoverEnabled: false
+      implicitWidth: parent.width
+      font.pixelSize: Conf.fontSize
+      horizontalAlignment: TextField.AlignHCenter
+      background: {
+        color: "transparent"
+      }
+      placeholderText: Conf.wpPath
+    }
+    ScrollView {
+      Layout.alignment: horizontalCenter
+      Layout.fillHeight: true
+      padding: 5;
+      hoverEnabled: false
+      GridLayout {
+        columns: 4
+        Repeater {
+          model: wps
+          ClippingRectangle {
+            width: Screen.width / 10
+            height: Screen.height / 10
+            radius: 10
+            color: "#A5202020"
+            Image {
+              anchors.fill: parent
+              source: modelData
+              sourceSize.width: parent.width
+              sourceSize.height: parent.height
+              asynchronous: true
+            }
+            MouseArea {
+              anchors.fill: parent
+              onClicked: Conf.background = modelData;
+            }
           }
         }
       }

@@ -81,6 +81,11 @@ Singleton {
     console.log("Did not find icon for: " + app)
   }
 
+  Process {
+    running: true
+    command: ["notify-send", "-a", "Quickshell", "Loaded Quickshell"]
+  }
+
 
   property int barHeight: job.barHeight ? job.barHeight : 50 // Default: 50
   property int barWidth: job.barWidth ? job.barWidth : Screen.width -50
