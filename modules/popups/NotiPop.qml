@@ -227,8 +227,8 @@ PanelWindow {
           RowLayout {
             anchors.fill: parent
             ColumnLayout{
-              id: txtColumn
-              implicitWidth: parent.width - 50
+              id: contentColumn
+              implicitWidth: notiBody.width - 50
               // Layout.fillWidth: true
               Layout.fillHeight: true
               // width: 460
@@ -253,45 +253,43 @@ PanelWindow {
                 }
                 Text {
                   text: title
-                  // text: modelData.appName.length > 0 ? modelData.appName : modelData.summary
                   color: Conf.txtColor
-                  // leftPadding: 5
                   anchors.verticalCenter: parent.verticalCenter
-                  // padding: 5
-                }
-              }
-              ScrollView {
-                visible: !image
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-                // padding: 5
-                Text {
-                  text: bodyMsg
-                  wrapMode: Text.WordWrap
-                  width: txtColumn.width
-                  color: Conf.secTxtColor
-                  anchors.bottom: parent.bottom
-                  bottomPadding: 5
-                  leftPadding: 5
-                  font.pixelSize: Conf.fontSize
                 }
               }
               ClippingRectangle {
-                id: imgView
+                id: contentView
                 Layout.fillHeight: true
                 Layout.fillWidth: true
-                visible: image
-                radius: 15
-                color: "black"
+                radius: 20
+                color: "transparent"
                 ScrollView {
+                  visible: !image
                   anchors.fill: parent
+                  contentWidth: contentView.width
+                  ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
+                  ScrollBar.vertical.policy: ScrollBar.AlwaysOff
+                  Text {
+                    text: bodyMsg
+                    wrapMode: Text.WordWrap
+                    width: contentView.width
+                    color: Conf.secTxtColor
+                    anchors.centerIn: parent
+                    padding: 5
+                    font.pixelSize: Conf.fontSize
+                  }
+                }
+                ScrollView {
+                  visible: image
+                  anchors.fill: parent
+                  ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
+                  ScrollBar.vertical.policy: ScrollBar.AlwaysOff
                   Image {
                     id: img
                     source: image
-                    sourceSize.height: imgView.height
-                    sourceSize.width: imgView.width
+                    sourceSize.height: contentView.height
+                    sourceSize.width: contentView.width
                     fillMode: Image.PreserveAspectCrop
-                    anchors.centerIn: parent
                   }
                 }
               }
