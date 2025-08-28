@@ -21,8 +21,8 @@ PanelWindow {
     right: true
   }
   margins {
-    right: 10
-    bottom: 10
+    right: 5
+    bottom: 5
   }
   MouseArea {
     anchors.fill: parent
@@ -105,7 +105,7 @@ PanelWindow {
       ClippingRectangle {
         height: 25
         width: parent.width - 10
-        color: "black"
+        color: "#202020"
         radius: 5
         Text {
           padding: 2
@@ -207,7 +207,7 @@ PanelWindow {
             if(bodyMsg.length > wrapLength)
               height = notiHeights[1];
             if(hasImage(modelData))
-              height = notiHeights[2] + 100;
+              height = notiHeights[2] + 87;
             return height;
           }
           function getImg(){
