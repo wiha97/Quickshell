@@ -10,7 +10,8 @@ import qs
 PanelWindow {
   property list<Notification> notes: NotificationService.noties
   visible: notes.length === 0 ? false : true
-  property list<int> notiHeights: ["65", "100", "200"]
+  property list<int> notiHeights: ["65", "90", "200"]
+  property int wrapLength: 38
   // property int totalHeight: (notes.length * notiHeight) + 35 + (5 * notes.length);
   property int baseHeight: 35 + (5 * notes.length);
   property int totalHeight
@@ -36,7 +37,7 @@ PanelWindow {
   function getTotalHeight(){
     let height = baseHeight;
     notes.forEach((note)=>{
-      if (note.body.length < 46)
+      if (note.body.length < wrapLength)
         height += notiHeights[0]
       else
         height += notiHeights[1]
@@ -184,13 +185,12 @@ PanelWindow {
               // }
             }
             if(note.appIcon.length > 0){
+              icon = note.appIcon;
               if(note.image.includes("qsimage"))
                 iconImg = note.image;
-              else
-                icon = note.appIcon;
             } else {
               if(note.image.includes("/icon/")){
-                icon = note.image.replace("image://icon/", "");
+                iconImg = note.image.replace("image://icon/", "");
               }
             }
             if(!title.length){
@@ -204,7 +204,7 @@ PanelWindow {
           height: setHeight();
           function setHeight(){
             let height = notiHeights[0];
-            if(modelData.body.length > 46)
+            if(bodyMsg.length > wrapLength)
               height = notiHeights[1];
             if(hasImage(modelData))
               height = notiHeights[2] + 100;
@@ -227,9 +227,17 @@ PanelWindow {
             Row {
               leftPadding: 5
               topPadding: 5
+              spacing: 5
               Image {
-                visible: icon || iconImg
-                source: icon ? Quickshell.iconPath(icon) : iconImg
+                visible: icon
+                source: Quickshell.iconPath(icon)
+                width: 22
+                height: 22
+                anchors.verticalCenter: parent.verticalCenter
+              }
+              Image {
+                visible: iconImg
+                source: iconImg
                 width: 22
                 height: 22
                 anchors.verticalCenter: parent.verticalCenter
@@ -238,7 +246,7 @@ PanelWindow {
                 text: title
                 // text: modelData.appName.length > 0 ? modelData.appName : modelData.summary
                 color: Conf.txtColor
-                leftPadding: 5
+                // leftPadding: 5
                 anchors.verticalCenter: parent.verticalCenter
                 // padding: 5
               }
