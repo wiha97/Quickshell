@@ -8,6 +8,7 @@ import Quickshell.Widgets
 import Quickshell.Hyprland
 import qs.modules.bar
 import qs.modules.singles
+import qs.modules.popups
 
 ShellRoot {
   id: root
@@ -54,4 +55,6 @@ ShellRoot {
   Loader {
     sourceComponent: Dash {}
   }
+
+  NotiPop {}
 }
