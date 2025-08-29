@@ -193,7 +193,8 @@ PanelWindow {
                 iconImg = note.image;
             } else {
               if(note.image.includes("/icon/")){
-                iconImg = note.image.replace("image://icon/", "");
+                // if(note.image.length < 50)
+                icon = note.image.replace("image://icon/", "");
               }
             }
             if(!title.length){
