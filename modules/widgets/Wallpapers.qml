@@ -10,6 +10,7 @@ import qs
 Rectangle {
   color: "transparent"
   property list<string> wps
+      focus: true
 
   Process {
     running: true
@@ -41,7 +42,7 @@ Rectangle {
       implicitWidth: parent.width
       font.pixelSize: Conf.fontSize
       horizontalAlignment: TextField.AlignHCenter
-      background: {
+      background: Rectangle {
         color: "transparent"
       }
       placeholderText: Conf.wpPath

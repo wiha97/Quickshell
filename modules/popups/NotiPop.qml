@@ -39,11 +39,13 @@ PanelWindow {
   function getTotalHeight(){
     let height = baseHeight;
     notes.forEach((note)=>{
-      if (note.body.length < wrapLength)
+      let length = note.body.length != 0 ? note.body.length : note.summary.length;
+      // console.log(length);
+      if (length < wrapLength)
         height += notiHeights[0]
-      else
+      else if(length < wrapLength * 6)
         height += notiHeights[1]
-      if(hasImage(note))
+      if(hasImage(note) || length >= wrapLength * 6)
         height += notiHeights[2]
     });
     return height
@@ -207,11 +209,16 @@ PanelWindow {
           width: parent.width - 10
           height: setHeight();
           function setHeight(){
-            let height = notiHeights[0];
-            if(bodyMsg.length > wrapLength)
+            let height;
+            let length = bodyMsg.length;
+            if(length < wrapLength)
+              height = notiHeights[0];
+            else if(length < wrapLength * 6)
               height = notiHeights[1];
+            else
+              height = notiHeights[2];
             if(hasImage(modelData))
-              height = notiHeights[2] + 87;
+              height = notiHeights[2] + 87; // images need an extra 87 pixels
             return height;
           }
           function getImg(){
@@ -270,7 +277,7 @@ PanelWindow {
                   contentWidth: contentView.width
                   ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
                   ScrollBar.vertical.policy: ScrollBar.AlwaysOff
-                  Text {
+                  TextEdit {
                     text: bodyMsg
                     wrapMode: Text.WordWrap
                     width: contentView.width
@@ -278,6 +285,7 @@ PanelWindow {
                     anchors.centerIn: parent
                     padding: 5
                     font.pixelSize: Conf.fontSize
+                    selectByMouse: true
                   }
                 }
                 ScrollView {

@@ -45,7 +45,7 @@ WidBase {
         property string app: active.wayland.appId
         source: Quickshell.iconPath(
           Conf.getIcon(active.workspace.focused ?
-          app.toLowerCase() : "distro"));
+          app.toLowerCase() : "cachyoshello"));
       }
     }
   }

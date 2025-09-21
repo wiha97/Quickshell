@@ -3,9 +3,45 @@ pragma Singleton
 import QtQuick
 import Quickshell
 import Quickshell.Io
+import qs
 
 Singleton {
   id: root
+
+  property list<string> files;
+  property list<FileView> fViews;
+  property string location: "/home/tux/.config/quickshell"
+
+  Process {
+    running: true
+    command: ["ls", "-f", location+"/themes"]
+    stdout: StdioCollector {
+      onStreamFinished: {
+        let out = this.text.split("\n");
+        for(let i = 0; i < out.length; i++){
+          let file = out[i]
+          file = file.substring(0, file.indexOf('.'));
+          if(file.length > 0){
+            files.push(file)
+            console.log(file);
+            // fViews.push();
+          }
+        }
+      }
+    }
+  }
+
+  Repeater {
+    model: files
+    FileView {
+      id: modelData
+      path: Qt.resolveUrl("./themes/"+modelData+".json")
+
+      blockLoading: true
+      watchChanges: true
+      onFileChanged: reload()
+    }
+  }
 
   FileView {
     id: jsonFile
@@ -29,6 +65,7 @@ Singleton {
   readonly property var apps: DesktopEntries.applications.values
 
   function changeTheme(theme) {
+    // return JSON."./themes/"+theme+".json";
     switch(theme){
       case "xbox":
         return JSON.parse(xboxFile.text());
@@ -65,7 +102,7 @@ Singleton {
       case "org.kde.discover":
         app = "upptäck";
         break;
-      case "distro":
+      case "cachyoshello":
         app = "cachyos hello";
         break;
     }
@@ -81,11 +118,12 @@ Singleton {
     console.log("Did not find icon for: " + app)
   }
 
-  Process {
-    running: true
-    command: ["notify-send", "-a", "Quickshell", "Loaded Quickshell"]
-  }
+  // Process {
+  //   running: true
+  //   command: ["notify-send", "-a", "Quickshell", "Loaded Quickshell"]
+  // }
 
+  // Component.onCompleted: console.log("clip: "+Quickshell.clipboardText)
 
   property int barHeight: job.barHeight ? job.barHeight : 50 // Default: 50
   property int barWidth: job.barWidth ? job.barWidth : Screen.width -50

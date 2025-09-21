@@ -19,6 +19,25 @@ Rectangle {
         text: "THEMES"
         horizontalAlignment: Text.AlignHCenter
       }
+      // Repeater {
+      //   model: Conf.files
+      //   Rectangle {
+      //     property string name: modelData
+      //     width: 200
+      //     height: 35
+      //     color: Conf.hilightColor
+      //     Label {
+      //       anchors.centerIn: parent
+      //       text: parent.name
+      //       color: "white"
+      //       font.pixelSize: Conf.fontSize
+      //     }
+      //     MouseArea {
+      //       anchors.fill: parent
+      //       onClicked: Conf.job = Conf.changeTheme(parent.name.toLowerCase())
+      //     }
+      //   }
+      // }
       Rectangle {
         property string name: "DEFAULT"
         width: 200
