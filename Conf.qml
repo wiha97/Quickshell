@@ -118,6 +118,19 @@ Singleton {
     console.log("Did not find icon for: " + app)
   }
 
+  Process {
+    id: getUser
+    running: true
+    command: ["whoami"]
+    stdout: StdioCollector {
+      onStreamFinished: {
+        user = this.text.substring(0,this.text.indexOf("\n"))
+        console.log(user);
+      }
+    }
+  }
+  property string user
+
   // Process {
   //   running: true
   //   command: ["notify-send", "-a", "Quickshell", "Loaded Quickshell"]
@@ -144,6 +157,8 @@ Singleton {
   property string secTxtColor: getVal(job.secTxtColor, txtColor)
   property bool showLine: getVal(job.showLine, true)
   property bool barOnTop: getVal(job.barOnTop, true)
-  property string wpPath: "/home/tux/Pictures/Wallpapers/"
-  property string background: getVal(job.background, "/home/tux/Pictures/Wallpapers/halodark.png")
+  // property string wpPath: "/home/tux/Pictures/Wallpapers"
+  property string wpPath: getVal(job.wpPath, "/home/"+user+"/Pictures/wallpapers")
+  property string background: job.background.length > 0 ? wpPath+"/"+job.background : null
+  // property string background: getVal(wpPath+"/"+job.background,null)
 }

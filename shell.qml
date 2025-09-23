@@ -16,6 +16,8 @@ ShellRoot {
   Loader {
     visible: true
     sourceComponent: PanelWindow {
+      visible: Conf.background
+      color: "transparent"
       exclusionMode: ExclusionMode.Ignore
       aboveWindows: false
       anchors {
@@ -26,6 +28,7 @@ ShellRoot {
       }
       ClippingRectangle {
         anchors.fill: parent
+        color: "transparent"
         Image {
           id: img
           source: Conf.background

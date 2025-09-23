@@ -68,9 +68,41 @@ Rectangle {
               sourceSize.height: parent.height
               asynchronous: true
             }
+            Rectangle {
+              visible: Conf.background == modelData
+              anchors.fill: parent
+              opacity: 0.6
+              color: "#202020"
+              Label {
+                text: "CURRENT"
+                anchors.centerIn: parent
+              }
+            }
+            Label {
+              anchors {
+                bottom: parent.bottom
+                right: parent.right
+              }
+              background: Rectangle {
+                color: "black"
+                anchors.fill: parent
+                opacity: 0.8
+                radius: 5
+              }
+              text: {
+                let idx = modelData.lastIndexOf("/");
+                return modelData.substring(idx+1, modelData.indexOf("."));
+              }
+            }
             MouseArea {
               anchors.fill: parent
-              onClicked: Conf.background = modelData;
+              onClicked: {
+                if(Conf.background != modelData){
+                  Conf.background = modelData;
+                } else {
+                  Conf.background = null;
+                }
+              }
             }
           }
         }
