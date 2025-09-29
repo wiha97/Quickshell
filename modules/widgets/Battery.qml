@@ -3,10 +3,11 @@ import Quickshell
 import Quickshell.Services.UPower
 import qs
 
-
 //  Battery
 //
 WidBase {
+  property bool hasBattery: UPower.displayDevice.isLaptopBattery
+  visible: hasBattery
   width: powRow.width
   // property string tColor: Conf.txtColor
 
@@ -30,7 +31,7 @@ WidBase {
           anchors.centerIn: parent
           Timer {
             interval: 1000
-            running: true
+            running: hasBattery
             repeat: true
 
             onTriggered: {

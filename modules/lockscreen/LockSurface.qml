@@ -2,16 +2,32 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls.Fusion
 import Quickshell
+import Quickshell.Io
 import Quickshell.Wayland
 import Qt5Compat.GraphicalEffects
+import qs
 import qs.modules.widgets
+import qs.modules.singles
 
 Rectangle {
   id: root
 
   required property LockContext context
+  property string hasFprint: ""
 
-  color: "transparent"
+
+  Process {
+    running: true
+    command: ["lsusb", "|", "grep", "-i", "fingerprint"]
+    stdout: StdioCollector {
+      onStreamFinished: {
+        hasFprint = this.text
+        // console.log(hasFprint)
+      }
+    }
+  }
+
+  color: "#05272727"
 
   // Ugly "solution" for non-awkward fingerprint unlock
   //
@@ -20,14 +36,30 @@ Rectangle {
   //  TODO: Dynamically pick WP at random from ~/Pictures/wallpapers
   Image {
     id: img
-    source: "/home/tux/Pictures/Wallpapers/Cachy depths 5K.png"
+    source: WPService.lockscreen
+    // source: WPService.walls[10]
+    // source: Conf.wpPath + "/"+WPService.walls[2]
+    // source: Conf.wpPath + "/archblue.png"
     anchors.fill: parent
     fillMode: Image.PreserveAspectCrop
+    // Timer {
+    //   running: true
+    //   interval: 5000
+    //   repeat: true
+    //   onTriggered: {
+    //     img.source = WPService.walls[Math.floor(Math.floor(Math.random(0, WPService.walls.length -1)*10))]
+    //   }
+    // }
   }
   FastBlur{
     source: img
-    radius: 40
+    radius: 10
     anchors.fill: parent
+  }
+
+  Timer {
+    running: true
+
   }
 
   MouseArea {
@@ -106,7 +138,8 @@ Rectangle {
           horizontalAlignment: TextField.AlignHCenter
           placeholderText: qsTr("Enter password")
           background: Rectangle {
-            color: "transparent"
+            // color: "transparent"
+            color: "#272727"
             border.color: root.context.unlockInProgress ? "#272727" : "white"
             radius: 25
             opacity: 0.8
@@ -140,6 +173,7 @@ Rectangle {
       // Fingerprint
       //
       ColumnLayout {
+        visible: hasFprint.length > 0 ? true : false
         anchors.horizontalCenter: parent.horizontalCenter
         Rectangle {
           anchors.horizontalCenter: parent.horizontalCenter
