@@ -34,7 +34,7 @@ PanelWindow {
       NotificationService.startTimer(false);
     }
   }
-  implicitWidth: NotificationService.showNotes ? 550 : 100
+  implicitWidth: NotificationService.showNotes ? 450 : 100
   implicitHeight: NotificationService.showNotes ? getTotalHeight() : 35
   function getTotalHeight(){
     let height = baseHeight;
@@ -314,7 +314,7 @@ PanelWindow {
               // anchors.right: parent.right
               radius: 5
               Text {
-                text: ""
+                text: ""
                 color: Conf.secTxtColor
                 anchors.centerIn: parent
                 font.pixelSize: 30

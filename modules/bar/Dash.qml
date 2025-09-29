@@ -12,8 +12,8 @@ import qs.modules.widgets.assets
 PanelWindow {
   property string mainColor: Conf.mainColor
   property string mainBColor: Conf.mainBColor
-  property int dashHeight: Screen.height / 3
-  property int dashWidth: Screen.width / 2
+  property int dashHeight: screen.height / 2
+  property int dashWidth: screen.width / 2
   property int rad: 25
   Component.onCompleted: {
     if (this.WlrLayershell != null) {

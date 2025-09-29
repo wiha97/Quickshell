@@ -12,27 +12,11 @@ Rectangle {
   id: rect
   color: "transparent"
   property list<string> wps
-      focus: true
-
-  // Process {
-  //   running: true
-  //   command: ["ls", Conf.wpPath]
-  //   stdout: StdioCollector {
-  //     onStreamFinished: {
-  //       let output = this.text.split("\n");
-  //       for(let i = 0; i < output.length; i++) {
-  //         let wp = output[i];
-  //         if(wp.length > 0 && wp != "assets") {
-  //           wps.push(Conf.wpPath + "/" + wp);
-  //         }
-  //       }
-  //     }
-  //   }
-  // }
-
+  focus: true
 
   ColumnLayout {
-    anchors.fill: parent
+    anchors.horizontalCenter: parent.horizontalCenter
+    height: parent.height
     focus: true
     TextField {
       focus: true
@@ -56,7 +40,7 @@ Rectangle {
       padding: 5;
       hoverEnabled: false
       GridLayout {
-        columns: 3
+        columns: 4
         Repeater {
           model: WPService.walls
           ClippingRectangle {

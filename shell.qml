@@ -19,16 +19,16 @@ ShellRoot {
     id: bgLoader
     visible: true
     sourceComponent:
-    Background {}
-    // Variants {
-    //   model: Quickshell.screens
-    //   delegate: Component {
-    //     Background {
-    //       required property var modelData
-    //       screen: modelData
-    //     }
-    //   }
-    // }
+    // Background {}
+    Variants {
+      model: Quickshell.screens
+      delegate: Component {
+        Background {
+          required property var modelData
+          screen: modelData
+        }
+      }
+    }
   }
 
   Variants {
@@ -47,8 +47,25 @@ ShellRoot {
   }
 
   Loader {
-    sourceComponent: Dash {}
+    sourceComponent:
+    Variants {
+      model: Quickshell.screens;
+      delegate: Component {
+        Dash {
+          required property var modelData
+          screen: modelData
+        }
+      }
+    }
   }
 
-  NotiPop {}
+  Variants {
+    model: Quickshell.screens;
+    delegate: Component {
+      NotiPop {
+        required property var modelData
+        screen: modelData
+      }
+    }
+  }
 }
