@@ -30,8 +30,21 @@ WidBase {
         MouseArea {
           anchors.fill: parent
 
-          onClicked: wId === "-98" ? Hyprland.dispatch("togglespecialworkspace scratchpad") :
-                                     Hyprland.dispatch("workspace " + modelData.id)
+          onClicked:{
+            switch (wId){
+              case "-98":
+                Hyprland.dispatch("togglespecialworkspace scratchpad");
+                break;
+              default:
+                Hyprland.dispatch("moveworkspacetomonitor " + modelData.id + " current");
+                Hyprland.dispatch("workspace " + modelData.id);
+                break;
+            }
+          }
+          // wId === "-98" ? Hyprland.dispatch("togglespecialworkspace scratchpad") : {
+          //   Hyprland.dispatch("moveworkspacetomonitor + " modelData.id)
+          //   Hyprland.dispatch("workspace " + modelData.id)
+          // }
         }
 
         Row {
@@ -47,8 +60,9 @@ WidBase {
             model: modelData.toplevels
             Rectangle {
               property string app: modelData.wayland.appId
-              width: parent.height
-              height: parent.height
+              width: fontSize
+              height: fontSize
+              anchors.verticalCenter: parent.verticalCenter
               color: "transparent"
               Image {
                 width: parent.width
@@ -59,6 +73,30 @@ WidBase {
             }
           }
         }
+      }
+    }
+
+    Rectangle {
+      // width: barHeight * 2
+      height: widgetHeight+2
+      width: txt.width + 10
+      radius: rad / 2
+      color: secColor
+      border.color: secColor
+      border.width: 1
+      Text {
+        id: txt
+        anchors.centerIn: parent
+        text: "+"
+        font.pixelSize: fontSize
+        color: txtColor
+      }
+
+      MouseArea {
+        anchors.fill: parent
+        onClicked: Hyprland.dispatch("workspace emptymn")
+        // onClicked: wId === "-98" ? Hyprland.dispatch("togglespecialworkspace scratchpad") :
+        //                            Hyprland.dispatch("workspace " + modelData.id)
       }
     }
   }
