@@ -39,26 +39,26 @@ WidBase {
         let nodes = Pipewire.nodes.values;
         for(let i = 0; i < nodes.length; i++){
           if(nodes[i].audio != null && !nodes[i].isStream) {
-            console.log("Node: " + nodes[i].nickname);
-            console.log("Vol: " + nodes[i].audio.volume);
+            // console.log("Node: " + nodes[i].nickname);
+            // console.log("Vol: " + nodes[i].audio.volume);
           }
         }
         let links = Pipewire.links.values;
         for(let i = 0; i < links.length; i++){
-          console.log("src: " + links[i].source.name);
+          // console.log("src: " + links[i].source.name);
           // if(nodes[i].audio != null)
-          console.log("trgt: " + links[i].target.name);
+          // console.log("trgt: " + links[i].target.name);
         }
         let objs = PwObjectTracker.objects.values;
         console.log(objs.length);
         for(let i = 0; i < objs.length; i++){
-          console.log("pw: " + objs[i].name);
+          // console.log("pw: " + objs[i].name);
           // if(nodes[i].audio != null)
           // console.log("trgt: " + links[i].target.name);
         }
       }
       // text: Pipewire.defaultAudioSink.nickname
-      text: ""
+      text: ""
       color: txtColor
     }
 

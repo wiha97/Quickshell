@@ -6,26 +6,29 @@ import Quickshell
 import Quickshell.Widgets
 import Quickshell.Io
 import qs
+import qs.modules.singles
 
 Rectangle {
+  id: rect
   color: "transparent"
   property list<string> wps
       focus: true
 
-  Process {
-    running: true
-    command: ["ls", Conf.wpPath]
-    stdout: StdioCollector {
-      onStreamFinished: {
-        let output = this.text.split("\n");
-        for(let i = 0; i < output.length; i++) {
-          if(output[i].length > 0) {
-            wps.push(Conf.wpPath + "/" + output[i]);
-          }
-        }
-      }
-    }
-  }
+  // Process {
+  //   running: true
+  //   command: ["ls", Conf.wpPath]
+  //   stdout: StdioCollector {
+  //     onStreamFinished: {
+  //       let output = this.text.split("\n");
+  //       for(let i = 0; i < output.length; i++) {
+  //         let wp = output[i];
+  //         if(wp.length > 0 && wp != "assets") {
+  //           wps.push(Conf.wpPath + "/" + wp);
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
 
 
   ColumnLayout {
@@ -53,9 +56,9 @@ Rectangle {
       padding: 5;
       hoverEnabled: false
       GridLayout {
-        columns: 4
+        columns: 3
         Repeater {
-          model: wps
+          model: WPService.walls
           ClippingRectangle {
             width: Screen.width / 10
             height: Screen.height / 10

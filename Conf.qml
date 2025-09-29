@@ -8,9 +8,22 @@ import qs
 Singleton {
   id: root
 
+  property list<string> walls
   property list<string> files;
   property list<FileView> fViews;
   property string location: "/home/tux/.config/quickshell"
+
+  Process {
+    id: getUser
+    running: true
+    command: ["whoami"]
+    stdout: StdioCollector {
+      onStreamFinished: {
+        user = this.text.substring(0,this.text.indexOf("\n"))
+      }
+    }
+  }
+  property string user
 
   Process {
     running: true
@@ -25,6 +38,23 @@ Singleton {
             files.push(file)
             console.log(file);
             // fViews.push();
+          }
+        }
+      }
+    }
+  }
+
+  Process {
+    id: proc
+    running: false
+    command: ["ls", Conf.wpPath]
+    stdout: StdioCollector {
+      onStreamFinished: {
+        let output = this.text.split("\n");
+        for(let i = 0; i < output.length; i++) {
+          let wp = output[i];
+          if(wp.length > 0 && wp != "assets") {
+            root.walls.push(Conf.wpPath + "/" + wp);
           }
         }
       }
@@ -117,19 +147,6 @@ Singleton {
     }
     console.log("Did not find icon for: " + app)
   }
-
-  Process {
-    id: getUser
-    running: true
-    command: ["whoami"]
-    stdout: StdioCollector {
-      onStreamFinished: {
-        user = this.text.substring(0,this.text.indexOf("\n"))
-        console.log(user);
-      }
-    }
-  }
-  property string user
 
   // Process {
   //   running: true
