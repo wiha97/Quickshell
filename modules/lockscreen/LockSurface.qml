@@ -51,11 +51,11 @@ Rectangle {
     //   }
     // }
   }
-  FastBlur{
-    source: img
-    radius: 10
-    anchors.fill: parent
-  }
+  // FastBlur{
+  //   source: img
+  //   radius: 10
+  //   anchors.fill: parent
+  // }
 
   Timer {
     running: true
