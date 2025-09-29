@@ -4,8 +4,10 @@
 import QtQuick
 import QtQuick.Controls
 import Quickshell
+import Quickshell.Io
 import Quickshell.Widgets
 import Quickshell.Hyprland
+import qs.modules
 import qs.modules.bar
 import qs.modules.singles
 import qs.modules.popups
@@ -14,44 +16,33 @@ ShellRoot {
   id: root
 
   Loader {
+    id: bgLoader
     visible: true
-    sourceComponent: PanelWindow {
-      visible: Conf.background
-      color: "transparent"
-      exclusionMode: ExclusionMode.Ignore
-      aboveWindows: false
-      anchors {
-        top:true
-        bottom: true
-        left: true
-        right: true
-      }
-      ClippingRectangle {
-        anchors.fill: parent
-        color: "transparent"
-        Image {
-          id: img
-          source: Conf.background
-          anchors.fill: parent
-          fillMode: Image.PreserveAspectCrop
-        }
-      }
-      Label {
-        id: splashLab
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.bottom: parent.bottom
-        padding: 50
-        font.pixelSize: Conf.fontSize * 1.2
-        color: "#79CDBE"
-        text: HyprSplash.msg
-      }
-    }
+    sourceComponent:
+    Background {}
+    // Variants {
+    //   model: Quickshell.screens
+    //   delegate: Component {
+    //     Background {
+    //       required property var modelData
+    //       screen: modelData
+    //     }
+    //   }
+    // }
   }
 
-  Loader {
-    property int hgt: Conf.barHeight
-    sourceComponent: Bar {
-      // barHeight: Hyprland.workspaces.values.length < 7 ? hgt : hgt * 0.8
+  Variants {
+    model: Quickshell.screens;
+    delegate: Component {
+      Loader {
+        required property var modelData
+        property int hgt: Conf.barHeight
+        sourceComponent: Bar {
+          screen: modelData
+          barWidth: modelData.width - 50
+          // barHeight: Hyprland.workspaces.values.length < 7 ? hgt : hgt * 0.8
+        }
+      }
     }
   }
 
