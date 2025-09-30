@@ -36,8 +36,8 @@ Rectangle {
   //  TODO: Dynamically pick WP at random from ~/Pictures/wallpapers
   Image {
     id: img
-    source: WPService.lockscreen
-    // source: WPService.walls[10]
+    // source: WPService.lockscreen
+    source: WPService.walls[12]
     // source: Conf.wpPath + "/"+WPService.walls[2]
     // source: Conf.wpPath + "/archblue.png"
     anchors.fill: parent
