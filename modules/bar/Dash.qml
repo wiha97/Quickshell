@@ -162,15 +162,16 @@ PanelWindow {
             }
           }
         }
+        // No noticable impact, keeps WPs loaded
+        Wallpapers {
+          id: wpview
+          visible: false
+        }
         Keys.onPressed: (event)=>{
           if(event.key == Qt.Key_Escape){
             dashy.margins.bottom = -dashHeight+10;
           }
         }
-      }
-      Wallpapers {
-        id: wpview
-        visible: false
       }
     }
   }
