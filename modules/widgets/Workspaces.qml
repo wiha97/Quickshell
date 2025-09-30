@@ -6,6 +6,9 @@ import qs
 WidBase {
   width: workspaceRow.width
   height: barHeight
+  property var workspaces: Hyprland.workspaces
+  property string monitor: screen.name
+  property bool current: true
 
   Row {
     id: workspaceRow
@@ -15,36 +18,33 @@ WidBase {
     padding: 8
 
     Repeater {
-      model: Hyprland.workspaces
+      model: workspaces
+      // model: Hyprland.workspaces
 
       Rectangle {
+        property bool sameScreen: modelData.monitor.name === monitor
+        visible: sameScreen || !modelData.active
         property string wId: modelData.id
+        property string wName: modelData.name
         // width: barHeight * 2
         height: widgetHeight+2
         width: 15+row.width
         radius: rad / 2
         color: secColor
-        border.color: modelData.active || wId === "-98" ? secBColor : secColor
+        border.color: modelData.active || wName.includes("special") ? secBColor : secColor
         border.width: 1
 
         MouseArea {
           anchors.fill: parent
 
           onClicked:{
-            switch (wId){
-              case "-98":
-                Hyprland.dispatch("togglespecialworkspace scratchpad");
-                break;
-              default:
-                Hyprland.dispatch("moveworkspacetomonitor " + modelData.id + " current");
-                Hyprland.dispatch("workspace " + modelData.id);
-                break;
+            if(wName.includes("special")){
+              Hyprland.dispatch("togglespecialworkspace " + wName.substring(wName.indexOf(":")+1));
+            } else {
+              Hyprland.dispatch("moveworkspacetomonitor " + modelData.id + " current");
+              Hyprland.dispatch("workspace " + modelData.id);
             }
           }
-          // wId === "-98" ? Hyprland.dispatch("togglespecialworkspace scratchpad") : {
-          //   Hyprland.dispatch("moveworkspacetomonitor + " modelData.id)
-          //   Hyprland.dispatch("workspace " + modelData.id)
-          // }
         }
 
         Row {
@@ -52,7 +52,19 @@ WidBase {
           spacing: 5
           anchors.centerIn: parent
           Text {
-            text: wId === "-98" ? "\udb85\udce7" : "["+modelData.name+"]"
+            text: {
+              switch(modelData.name){
+                case "special:browser":
+                  return "";
+                case "special:files":
+                  return "";
+                case "special:magic":
+                  return "\udb85\udce7";
+                default:
+                  return "["+modelData.name+"]";
+              }
+            }
+            // text: wId === "-98" ? "\udb85\udce7" : "["+modelData.name+"]"
             font.pixelSize: fontSize
             color: txtColor
           }
@@ -77,6 +89,7 @@ WidBase {
     }
 
     Rectangle {
+      visible: monitor === Hyprland.focusedMonitor.name
       // width: barHeight * 2
       height: widgetHeight+2
       width: txt.width + 10

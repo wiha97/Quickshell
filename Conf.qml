@@ -132,9 +132,21 @@ Singleton {
       case "org.kde.discover":
         app = "upptäck";
         break;
-      case "cachyoshello":
-        app = "cachyos hello";
+      case "app.zen_browser.zen":
+        app = "zen";
         break;
+      case "tidal-hifi":
+        app = "tidal hi-fi";
+        break;
+      case "org.prismlauncher.prismlauncher":
+        app = "prism launcher";
+        break;
+      // case "N/A":
+      //   app = "N/A";
+      //   break;
+      // case "cachyoshello":
+      //   app = "cachyos hello";
+      //   break;
     }
     for(let i = 0; i < apps.length; i++){
       let entry = apps[i];
