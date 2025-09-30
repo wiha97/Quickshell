@@ -4,22 +4,23 @@ import QtQuick.Controls
 import QtQuick.Controls.Fusion
 import Quickshell
 import Quickshell.Wayland
+import Quickshell.Hyprland
 import Quickshell.Widgets
 import qs
 import qs.modules.widgets
 import qs.modules.widgets.assets
 
 PanelWindow {
+  id: dashy
+  focusable: true
   property string mainColor: Conf.mainColor
   property string mainBColor: Conf.mainBColor
   property int dashHeight: screen.height / 2
   property int dashWidth: screen.width / 2
   property int rad: 25
   Component.onCompleted: {
-    if (this.WlrLayershell != null) {
-      this.WlrLayershell.layer = WlrLayer.Top;
-      this.WlrLayershell.keyboardFocus = KeyboardFocus.OnDemand;
-    }
+    this.WlrLayershell.layer = WlrLayer.Top;
+    this.WlrLayershell.keyboardFocus = KeyboardFocus.OnDemand;
   }
 
   implicitHeight: dashHeight
@@ -102,28 +103,33 @@ PanelWindow {
             title: "Themes"
             view: "../widgets/Colors.qml"
             loader: viewLoader
-          }
-          DashBtn {
-            title: "Wallpapers"
-            view: "../widgets/Wallpapers.qml"
-            loader: viewLoader
+        }
+        Loader {
+          Layout.margins: 10
+          id: viewLoader
+          focus: true
+          source: "../widgets/Settings.qml"
+          Layout.fillWidth: true
+          Layout.fillHeight: true
+        }
+        GlobalShortcut{
+          name: "toggle-apps"
+          onPressed: {
+            if(screen.name == Hyprland.focusedMonitor.name) {
+              viewLoader.source = "../widgets/Apps.qml"
+              dashy.margins.bottom = -5;
+            }
           }
         }
-      }
-      Loader {
-        Layout.margins: 10
-        id: viewLoader
-        focus: true
-        source: "../widgets/Settings.qml"
-        Layout.fillWidth: true
-        Layout.fillHeight: true
+        Keys.onPressed: (event)=>{
+          if(event.key == Qt.Key_Escape){
+            dashy.margins.bottom = -dashHeight+10;
+          }
+        }
       }
       Wallpapers {
         id: wpview
         visible: false
-      }
-      Keys.onPressed: (event)=>{
-        console.log("pressed key", event.text);
       }
     }
   }
