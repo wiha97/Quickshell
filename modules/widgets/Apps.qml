@@ -4,16 +4,25 @@ import QtQuick.Controls.Fusion
 import Quickshell
 import Quickshell.Widgets
 import qs
+import qs.modules.singles
 
 Rectangle {
   // anchors.fill: parent
 
+  property var entries: AppService.entries;
+  // property var entries: {
+  //   let apps = AppService.entries;
+  //   // apps.sort();
+  //   return apps;
+  // }
   color: "transparent"
 
   ColumnLayout {
     anchors.fill: parent
 
     TextField {
+      id: searchBox
+      focus: true
       hoverEnabled: false
       implicitWidth: parent.width
       font.pixelSize: Conf.fontSize
@@ -22,8 +31,33 @@ Rectangle {
       background: {
         color: "transparent"
       }
+      onTextChanged: {
+        let apps = AppService.entries;
+        let filter = searchBox.text.toLowerCase();
+        apps = apps.filter((app) => app.name.toLowerCase().includes(filter));
+        apps.sort((a,b) => a.name.localeCompare(b.name));
+        // apps.sort();
+        entries = apps;
+      }
+      Keys.onPressed: (e) => {
+        if(e.key == Qt.Key_Escape) {
+          console.log("pressed escape")
+          appGrid.focus = true
+        } else if(e.key == Qt.Key_Right){
+          appGrid.next();
+        } else if(e.key == Qt.Key_Left){
+          appGrid.prev();
+        } else if(e.key == Qt.Key_Down){
+          appGrid.down();
+        } else if(e.key == Qt.Key_Up){
+          appGrid.up();
+        } else if(e.key == Qt.Key_Return){
+          appGrid.open();
+        }
+      }
     }
     ScrollView {
+      id: scrolly
       Layout.fillHeight: true
       width: parent.width
       anchors.horizontalCenter: parent.horizontalCenter
@@ -31,23 +65,59 @@ Rectangle {
       hoverEnabled: false
 
       GridLayout {
+        id: appGrid
         // anchors.centerIn: parent
         columns: 7
+        property int item: 0
+        function next(){
+          item++
+          if(item > entries.length -1)
+            item = 0;
+          // else
+          rep.itemAt(item).focus = true
+        }
+        function prev(){
+          item--
+          if (item < 0)
+            item = entries.length -1;
+          rep.itemAt(item).focus = true
+        }
+        function up(){
+          item -= 7
+          if (item < 0)
+            item = 0;
+          rep.itemAt(item).focus = true
+          scrolly.ScrollBar.vertical.position = (item+1 /7) / 235
+        }
+        function down(){
+          item += 7
+          if (item > entries.length -1)
+            item = entries.length -1;
+          rep.itemAt(item).focus = true
+          scrolly.ScrollBar.vertical.position = (item+1 /7) / 235
+        }
+        function open(){
+          // console.log("Opening " + entries[item].name)
+          entries[item].execute();
+        }
 
         Repeater {
-          model: DesktopEntries.applications
-
+          id: rep
+          model: entries
           ClippingRectangle {
-            width: 120
-            height: 120
-            color: "transparent"
+            property int idx: appGrid.item
+            width: screen.height / 10 // 120
+            height: screen.height / 10 // 120
+            color: focus ? Conf.hilightColor : "transparent"
             radius: 25
             clip: true
-            // Label {
-            //   color: "white"
-            //   font.pixelSize: 8
-            //   text: modelData.name
-            // }
+            Keys.onPressed: (e) => {
+              console.log("pressed "+e.key)
+              if(e.key == Qt.Key_Right){
+                appGrid.next();
+              }
+            }
+            // KeyNavigation.right: appGrid.next();
             Column{
               anchors.fill: parent
               padding: 5
@@ -62,16 +132,19 @@ Rectangle {
                 anchors.horizontalCenter: parent.horizontalCenter
                 horizontalAlignment: Text.AlignHCenter
                 text: modelData.name
+                // text: ""+parent.parent.idx
                 width: parent.width
                 wrapMode: Text.Wrap
                 font.pixelSize: 12
               }
             }
-              MouseArea {
-                anchors.fill: parent
-                onClicked: modelData.execute();
-                // onClicked: console.log("clicked on: " + modelData.name);
+            MouseArea {
+              anchors.fill: parent
+              onClicked: {
+                modelData.execute();
+                searchBox.text = "";
               }
+            }
           }
         }
       }
