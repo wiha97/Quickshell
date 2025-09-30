@@ -11,12 +11,6 @@ Singleton {
 
   Process {
     running: true
-    // command: ["btop"]
-    // stdout: SplitParser {
-    //   onRead: data => {
-    //     label.text = data
-    //   }
-    // }
     command: ["fastfetch", "--logo", "none"]
     stdout: StdioCollector {
       onStreamFinished: root.info = this.text
