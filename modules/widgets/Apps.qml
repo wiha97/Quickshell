@@ -53,6 +53,7 @@ Rectangle {
           appGrid.up();
         } else if(e.key == Qt.Key_Return){
           appGrid.open();
+          searchBox.text = "";
         }
       }
     }
@@ -97,7 +98,6 @@ Rectangle {
           scrolly.ScrollBar.vertical.position = (item+1 / colCount) / 235
         }
         function open(){
-          // console.log("Opening " + entries[item].name)
           entries[item].execute();
         }
 

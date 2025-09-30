@@ -168,7 +168,7 @@ PanelWindow {
           visible: false
         }
         Keys.onPressed: (event)=>{
-          if(event.key == Qt.Key_Escape){
+          if(event.key == Qt.Key_Escape || event.key == Qt.Key_Return){
             dashy.margins.bottom = -dashHeight+10;
           }
         }
