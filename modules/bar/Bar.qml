@@ -36,8 +36,6 @@ PanelWindow {
 
   anchors {
     top: barOnTop
-    // left: true
-    // right: true
     bottom: !barOnTop
   }
 
@@ -79,7 +77,7 @@ PanelWindow {
         left: parent.left
         verticalCenter: parent.verticalCenter
       }
-      Widgets.Titlebar {
+      Widgets.Systray {
         parentId: panel
       }
     }
@@ -103,10 +101,6 @@ PanelWindow {
       anchors {
         right: parent.right
         verticalCenter: parent.verticalCenter
-      }
-
-      Widgets.Systray {
-        parentId: panel
       }
       Widgets.Bluetooth {
         parentId: panel

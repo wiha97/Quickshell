@@ -7,6 +7,7 @@ import Quickshell.Wayland
 import Quickshell.Hyprland
 import Quickshell.Widgets
 import qs
+import qs.modules.singles
 import qs.modules.widgets
 import qs.modules.widgets.assets
 
@@ -18,6 +19,7 @@ PanelWindow {
   property int dashHeight: screen.height / 2
   property int dashWidth: screen.width / 2
   property int rad: 25
+  property int stowedHeight: 22
   Component.onCompleted: {
     this.WlrLayershell.layer = WlrLayer.Top;
     this.WlrLayershell.keyboardFocus = KeyboardFocus.OnDemand;
@@ -34,7 +36,7 @@ PanelWindow {
   }
 
   margins {
-    bottom: -dashHeight + 10
+    bottom: -dashHeight + stowedHeight
   }
 
   color: "transparent"
@@ -68,41 +70,80 @@ PanelWindow {
       repeat: false
       interval: 300
       onTriggered: {
-        margins.bottom = -dashHeight+10;
+        margins.bottom = -dashHeight+stowedHeight;
       }
     }
-    RowLayout{
+    ColumnLayout {
       anchors.fill: parent
-      Rectangle {
-        // topLeftRadius: rad
-        width: 150
+      Row {
+        anchors.horizontalCenter: parent.horizontalCenter
+        spacing: 5
+        Text {
+          anchors.verticalCenter: parent.verticalCenter
+          text: TitleService.title
+          color: Conf.txtColor
+          font.pixelSize: screen.height / 100
+        }
+        Text {
+          visible: TitleService.icon === "N/A"
+          text: ""
+          color: "#589FEF"
+          // font.pixelSize: fSize
+          anchors.verticalCenter: parent.verticalCenter
+        }
+        Rectangle {
+          visible: TitleService.icon != "N/A"
+          anchors.verticalCenter: parent.verticalCenter
+          width: Conf.fontSize
+          height: Conf.fontSize
+          color: "transparent"
+          Image {
+            anchors.fill: parent
+            source: Quickshell.iconPath(Conf.getIcon(TitleService.icon))
+          }
+        }
+      }
+      RowLayout{
         Layout.fillHeight: true
-        // height: parent.height
-        color: "transparent"
-        ColumnLayout {
-          // property QtObject activeView
-          anchors.top: parent.top
-          width: parent.width
-          DashBtn {
-            // topLeftRadius: rad
-            title: "Overview"
-            view: "../widgets/Titlebar.qml"
-            loader: viewLoader
+        Layout.fillWidth: true
+        // anchors.fill: parent
+        Rectangle {
+          // topLeftRadius: rad
+          width: 150
+          Layout.fillHeight: true
+          // height: parent.height
+          color: "transparent"
+          ColumnLayout {
+            // property QtObject activeView
+            anchors.top: parent.top
+            width: parent.width
+            DashBtn {
+              // topLeftRadius: rad
+              title: "Overview"
+              view: "../widgets/SystemInfo.qml"
+              loader: viewLoader
+            }
+            DashBtn {
+              title: "Apps"
+              view: "../widgets/Apps.qml"
+              loader: viewLoader
+            }
+            DashBtn {
+              title: "Settings"
+              view: "../widgets/Settings.qml"
+              loader: viewLoader
+            }
+            DashBtn {
+              title: "Themes"
+              view: "../widgets/Colors.qml"
+              loader: viewLoader
+            }
+            DashBtn {
+              title: "Wallpapers"
+              view: "../widgets/Wallpapers.qml"
+              loader: viewLoader
+            }
           }
-          DashBtn {
-            title: "Apps"
-            view: "../widgets/Apps.qml"
-            loader: viewLoader
-          }
-          DashBtn {
-            title: "Settings"
-            view: "../widgets/Settings.qml"
-            loader: viewLoader
-          }
-          DashBtn {
-            title: "Themes"
-            view: "../widgets/Colors.qml"
-            loader: viewLoader
         }
         Loader {
           Layout.margins: 10

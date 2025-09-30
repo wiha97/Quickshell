@@ -7,7 +7,9 @@ import qs.modules.singles
 WidBase {
   width: titleRow.width
   // width: activeWinTxt.width + fontSize + 20
-  property HyprlandToplevel active: Hyprland.activeToplevel
+  // property HyprlandToplevel active: Hyprland.activeToplevel
+  // property string app: active.wayland.appId
+  // property string icon: active.workspace.focused ? app.toLowerCase() : "N/A"
 
   Row {
     id: titleRow
@@ -32,20 +34,26 @@ WidBase {
       // padding: 10
       color: txtColor
       font.pixelSize: fSize
-      text: active.workspace.focused ? tFunc() : HyprSplash.msg
+      text: TitleService.title
+      // text: active.workspace.focused ? tFunc() : HyprSplash.msg
       // text: "// TODO: Finish this panel"
     }
+    Text {
+      visible: TitleService.icon === "N/A"
+      text: ""
+      color: "#589FEF"
+      font.pixelSize: fSize
+      anchors.verticalCenter: parent.verticalCenter
+    }
     Rectangle {
+      visible: TitleService.icon != "N/A"
       anchors.verticalCenter: parent.verticalCenter
       width: fontSize * 1.2
       height: fontSize * 1.2
       color: "transparent"
       Image {
         anchors.fill: parent
-        property string app: active.wayland.appId
-        source: Quickshell.iconPath(
-          Conf.getIcon(active.workspace.focused ?
-          app.toLowerCase() : "cachyoshello"));
+        source: Quickshell.iconPath(Conf.getIcon(TitleService.icon))
       }
     }
   }
