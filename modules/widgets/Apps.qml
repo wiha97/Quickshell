@@ -66,8 +66,8 @@ Rectangle {
 
       GridLayout {
         id: appGrid
-        // anchors.centerIn: parent
-        columns: 7
+        property int colCount: 8
+        columns: colCount
         property int item: 0
         function next(){
           item++
@@ -83,18 +83,18 @@ Rectangle {
           rep.itemAt(item).focus = true
         }
         function up(){
-          item -= 7
+          item -= colCount
           if (item < 0)
             item = 0;
           rep.itemAt(item).focus = true
-          scrolly.ScrollBar.vertical.position = (item+1 /7) / 235
+          scrolly.ScrollBar.vertical.position = (item+1 / colCount) / 235
         }
         function down(){
-          item += 7
+          item += colCount
           if (item > entries.length -1)
             item = entries.length -1;
           rep.itemAt(item).focus = true
-          scrolly.ScrollBar.vertical.position = (item+1 /7) / 235
+          scrolly.ScrollBar.vertical.position = (item+1 / colCount) / 235
         }
         function open(){
           // console.log("Opening " + entries[item].name)
@@ -106,8 +106,8 @@ Rectangle {
           model: entries
           ClippingRectangle {
             property int idx: appGrid.item
-            width: screen.height / 10 // 120
-            height: screen.height / 10 // 120
+            width: screen.width / 20 // 120
+            height: screen.width / 20 // 120
             color: focus ? Conf.hilightColor : "transparent"
             radius: 25
             clip: true
