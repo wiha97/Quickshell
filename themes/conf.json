@@ -2,7 +2,7 @@
   "barHeight": 40,
   "widgetHeight": 50,
   "lineHeight": 10,
-  "topMargin": 0,
+  "topMargin": 5,
   "sideMargin": 15,
   "mainColor": "#05272727",
   "secColor": "#1A1e90ff",
