@@ -34,7 +34,7 @@ Rectangle {
       placeholderText: Conf.wpPath
     }
     Row {
-      visible: Quickshell.screens
+      visible: Quickshell.screens.length > 1
       height: 50
       // width: parent.width
       anchors.horizontalCenter: parent.horizontalCenter
