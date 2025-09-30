@@ -111,8 +111,8 @@ Singleton {
   }
 
   function getIcon(app){
-    // let apps = DesktopEntries.applications;
-    // console.log("Setting icon for "+app)
+    if(app.includes("."))
+      app = app.substring(app.lastIndexOf(".")+1)
     switch (app) {
       case "jetbrains-rider":
         app = "rider";
@@ -120,38 +120,26 @@ Singleton {
       case "jetbrains-idea":
         app = "intellij";
         break;
-      case "com.github.ismaelmartinez.teams_for_linux":
+      case "teams_for_linux":
         app = "teams";
         break;
-      case "org.ijhack.qtpass":
+      case "qtpass":
         app = "qtpass";
         break;
-      case "org.kde.dolphin":
+      case "dolphin":
         app = "dolphin";
-        break;
-      case "org.kde.discover":
-        app = "upptäck";
-        break;
-      case "app.zen_browser.zen":
-        app = "zen";
         break;
       case "tidal-hifi":
         app = "tidal hi-fi";
         break;
-      case "org.prismlauncher.prismlauncher":
+      case "prismlauncher":
         app = "prism launcher";
         break;
-      // case "N/A":
-      //   app = "N/A";
-      //   break;
-      // case "cachyoshello":
-      //   app = "cachyos hello";
-      //   break;
     }
     for(let i = 0; i < apps.length; i++){
       let entry = apps[i];
-      // if(entry.name.toLowerCase().includes("cachy"))
-        // console.log(entry.name)
+      // if(entry.name.toLowerCase().includes("prism"))
+      //   console.log(entry.name)
       if(entry.name.toLowerCase().includes(app))
       {
         return entry.icon;

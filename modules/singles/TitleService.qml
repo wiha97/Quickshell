@@ -9,7 +9,7 @@ Singleton {
   id: root
   property HyprlandToplevel active: Hyprland.activeToplevel
   property string app: active.wayland.appId
-  property string icon: active.workspace.focused ? app.toLowerCase() : "N/A"
+  property string icon: active.workspace.focused ? app.toLowerCase().substring(app.lastIndexOf(".")+1) : "N/A"
 
   // property string title: active.workspace.focused ? active.title : HyprSplash.msg
   property string title: {
