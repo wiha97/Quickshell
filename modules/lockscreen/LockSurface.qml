@@ -16,6 +16,13 @@ Rectangle {
   property bool hasFprint
 
 
+  //  In case of bork
+  //
+  // Button {
+  //   text: "abort!"
+  //   onClicked: context.unlocked();
+  // }
+
   Process {
     running: true
     command: ["lsusb"]
@@ -41,20 +48,32 @@ Rectangle {
     anchors.fill: parent
     fillMode: Image.PreserveAspectCrop
   }
-  // FastBlur{
-  //   source: img
-  //   radius: 10
-  //   anchors.fill: parent
-  // }
+  FastBlur{
+    visible: passwordBox.focus
+    source: img
+    radius: 30
+    anchors.fill: parent
+  }
 
   Timer {
-    running: true
-
+    id: typeTimer
+    running: false
+    repeat: false
+    interval: 1500
+    onTriggered: {
+      if(passwordBox.text.length === 0)
+        root.focus = true
+    }
   }
 
   MouseArea {
     anchors.fill: parent
-    onClicked: context.fPrintCheck();
+    onClicked: {
+      if(hasFprint)
+        context.fPrintCheck();
+      if(passwordBox.text.length === 0)
+        root.focus = true
+    }
   }
 
   Rectangle {
@@ -75,12 +94,13 @@ Rectangle {
     }
   }
 
-  //  In case of bork
-  //
-  // Button {
-  //   text: "abort!"
-  //   onClicked: context.unlocked();
-  // }
+  focus: true
+
+  Keys.onPressed: (e) => {
+    passwordBox.focus = true;
+    if(e.key == QT.Key_Return)
+      root.context.tryUnlock();
+  }
 
 
   ColumnLayout {
@@ -124,6 +144,7 @@ Rectangle {
           horizontalAlignment: TextField.AlignHCenter
           placeholderText: qsTr("Enter password")
           background: Rectangle {
+            visible: passwordBox.focus
             // color: "transparent"
             color: "#272727"
             border.color: root.context.unlockInProgress ? "#272727" : "white"
@@ -131,12 +152,21 @@ Rectangle {
             opacity: 0.8
           }
 
-          focus: !hasFprint
+          // focus: !hasFprint
           enabled: !root.context.unlockInProgress
           echoMode: TextInput.Password
           inputMethodHints: Qt.ImhSensitiveData
 
-          onTextChanged: root.context.currentText = this.text;
+          onFocusChanged: {
+            typeTimer.stop();
+            typeTimer.start();
+          }
+
+          onTextChanged: {
+            typeTimer.stop();
+            typeTimer.start();
+            root.context.currentText = this.text;
+          }
           onAccepted: root.context.tryUnlock();
           Connections {
             target: root.context
