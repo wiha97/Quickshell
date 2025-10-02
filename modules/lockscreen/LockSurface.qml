@@ -219,4 +219,17 @@ Rectangle {
       }
     }
   }
+  Item {
+    anchors {
+      top: parent.top
+      horizontalCenter: parent.horizontalCenter
+    }
+    height: screen.height / 10
+    Label {
+      font.pixelSize: 26
+      anchors.centerIn: parent
+      text: HyprSplash.msg
+      color: "lightblue"
+    }
+  }
 }

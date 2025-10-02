@@ -45,6 +45,7 @@ Scope {
     showFailure = false;
     fPrintFail = false;
     fPrintSuccess = false;
+    fPrintTimer.stop();
   }
 
   function tryUnlock() {
