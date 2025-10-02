@@ -59,7 +59,7 @@ WidBase {
                 case "special:files":
                   return "";
                 case "special:magic":
-                  return "\udb85\udce7";
+                  return "󱓧";
                 default:
                   return "["+modelData.name+"]";
               }

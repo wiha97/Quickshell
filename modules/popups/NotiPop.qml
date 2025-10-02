@@ -284,7 +284,7 @@ PanelWindow {
                     color: Conf.secTxtColor
                     anchors.centerIn: parent
                     padding: 5
-                    font.pixelSize: Conf.fontSize
+                    font.pixelSize: Conf.fontSize * 0.8
                     selectByMouse: true
                   }
                 }

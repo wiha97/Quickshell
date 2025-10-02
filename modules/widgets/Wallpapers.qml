@@ -87,7 +87,7 @@ Rectangle {
                 asynchronous: true
               }
               Rectangle {
-                visible: Conf.background == modelData
+                visible: modelData.includes(Conf.background) && Conf.background.length > 0
                 anchors.fill: parent
                 opacity: 0.6
                 color: "#202020"
@@ -115,7 +115,8 @@ Rectangle {
               MouseArea {
                 anchors.fill: parent
                 onClicked: {
-                  if(Conf.background != modelData){
+                  if(!modelData.includes(Conf.background) || Conf.background.length == 0){
+                    Conf.background = null;
                     Conf.background = modelData;
                   } else {
                     Conf.background = null;

@@ -23,7 +23,9 @@ PanelWindow {
     Image {
       id: img
       source: Conf.background
-      anchors.fill: parent
+      // anchors.fill: parent
+      sourceSize.width: screen.width
+      sourceSize.height: screen.height
       fillMode: Image.PreserveAspectCrop
     }
   }

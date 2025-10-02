@@ -123,8 +123,8 @@ Rectangle {
               padding: 5
               Image {
                 // anchors.centerIn: parent
-                width: parent.width - 50
-                height: parent.height - 50
+                sourceSize.width: parent.width - 50
+                sourceSize.height: parent.height - 50
                 anchors.horizontalCenter: parent.horizontalCenter
                 source: Quickshell.iconPath(modelData.icon)
               }

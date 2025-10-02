@@ -132,13 +132,18 @@ Singleton {
       case "tidal-hifi":
         app = "tidal hi-fi";
         break;
+      case "mysql-workbench-bin":
+        app = "mysql";
+        break;
       case "prismlauncher":
         app = "prism launcher";
         break;
+      case "virt-manager":
+        app = "virtual machine manager"
     }
     for(let i = 0; i < apps.length; i++){
       let entry = apps[i];
-      // if(entry.name.toLowerCase().includes("prism"))
+      // if(entry.name.toLowerCase().includes("virt"))
       //   console.log(entry.name)
       if(entry.name.toLowerCase().includes(app))
       {
@@ -156,7 +161,7 @@ Singleton {
   // Component.onCompleted: console.log("clip: "+Quickshell.clipboardText)
 
   property int barHeight: job.barHeight ? job.barHeight : 50 // Default: 50
-  property int barWidth: job.barWidth ? job.barWidth : Screen.width -50
+  property int barWidth: job.barWidth ? job.barWidth : screen.width -50
   property int widgetHeight: getVal(job.widgetHeight, barHeight / 1.4)
   property int lineHeight: getVal(job.lineHeight, widgetHeight / 4)
   property int rad: job.rad ? job.rad : widgetHeight / 2

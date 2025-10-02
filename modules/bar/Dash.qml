@@ -19,7 +19,7 @@ PanelWindow {
   property int dashHeight: screen.height / 2
   property int dashWidth: screen.width / 2
   property int rad: 25
-  property int stowedHeight: 22
+  property int stowedHeight: 23
   Component.onCompleted: {
     this.WlrLayershell.layer = WlrLayer.Top;
     this.WlrLayershell.keyboardFocus = KeyboardFocus.OnDemand;
@@ -149,7 +149,7 @@ PanelWindow {
           Layout.margins: 10
           id: viewLoader
           focus: true
-          source: "../widgets/Settings.qml"
+          source: "../widgets/SystemInfo.qml"
           Layout.fillWidth: true
           Layout.fillHeight: true
         }
@@ -169,7 +169,7 @@ PanelWindow {
         }
         Keys.onPressed: (event)=>{
           if(event.key == Qt.Key_Escape || event.key == Qt.Key_Return){
-            dashy.margins.bottom = -dashHeight+10;
+            dashy.margins.bottom = -dashHeight + stowedHeight;
           }
         }
       }
