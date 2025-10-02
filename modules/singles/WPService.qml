@@ -10,13 +10,6 @@ Singleton {
   property list<string> walls
   property string lockscreen
 
-  Timer {
-    running: true
-    repeat: false
-    interval: 200
-    onTriggered: proc.running = true
-  }
-
   Process {
     id: proc
     running: false
@@ -27,11 +20,23 @@ Singleton {
         for(let i = 0; i < output.length; i++) {
           let wp = output[i];
           if(wp.length > 0 && wp != "assets") {
-            root.walls.push(Conf.wpPath + "/" + wp);
+            let fullPath = Conf.wpPath + "/" + wp;
+            root.walls.push(fullPath);
+            if(fullPath.includes(Conf.lockscreen)){
+              root.lockscreen = fullPath;
+              console.log(fullPath);
+            }
           }
         }
-        lockscreen = root.walls[Math.floor(Math.random() * root.walls.length)]
       }
     }
+  }
+
+  // Gives wpPath time to set
+  Timer {
+    running: true
+    repeat: false
+    interval: 300
+    onTriggered: proc.running = true
   }
 }

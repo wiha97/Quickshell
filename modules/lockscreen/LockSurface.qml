@@ -13,19 +13,20 @@ Rectangle {
   id: root
 
   required property LockContext context
-  property string hasFprint: ""
+  property bool hasFprint
 
 
   Process {
     running: true
-    command: ["lsusb", "|", "grep", "-i", "fingerprint"]
+    command: ["lsusb"]
     stdout: StdioCollector {
       onStreamFinished: {
-        hasFprint = this.text
-        // console.log(hasFprint)
+        root.hasFprint = this.text.toLowerCase().includes("fingerprint")
       }
     }
   }
+
+  Component.onCompleted: console.log(hasFprint)
 
   color: "#05272727"
 
@@ -36,20 +37,9 @@ Rectangle {
   //  TODO: Dynamically pick WP at random from ~/Pictures/wallpapers
   Image {
     id: img
-    // source: WPService.lockscreen
-    source: WPService.walls[12]
-    // source: Conf.wpPath + "/"+WPService.walls[2]
-    // source: Conf.wpPath + "/archblue.png"
+    source: WPService.lockscreen
     anchors.fill: parent
     fillMode: Image.PreserveAspectCrop
-    // Timer {
-    //   running: true
-    //   interval: 5000
-    //   repeat: true
-    //   onTriggered: {
-    //     img.source = WPService.walls[Math.floor(Math.floor(Math.random(0, WPService.walls.length -1)*10))]
-    //   }
-    // }
   }
   // FastBlur{
   //   source: img
@@ -66,11 +56,7 @@ Rectangle {
     anchors.fill: parent
     onClicked: context.fPrintCheck();
   }
-  // Rectangle {
-  //   anchors.fill: parent
-  //   color: "black"
-  //   opacity: 0.6
-  // }
+
   Rectangle {
     anchors.fill: parent
     color: "transparent"
@@ -145,8 +131,8 @@ Rectangle {
             opacity: 0.8
           }
 
-          // focus: true
-          // enabled: !root.context.unlockInProgress
+          focus: !hasFprint
+          enabled: !root.context.unlockInProgress
           echoMode: TextInput.Password
           inputMethodHints: Qt.ImhSensitiveData
 
@@ -173,7 +159,7 @@ Rectangle {
       // Fingerprint
       //
       ColumnLayout {
-        visible: hasFprint.length > 0 ? true : false
+        visible: hasFprint
         anchors.horizontalCenter: parent.horizontalCenter
         Rectangle {
           anchors.horizontalCenter: parent.horizontalCenter

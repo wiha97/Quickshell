@@ -8,6 +8,7 @@ import Quickshell.Io
 import Quickshell.Widgets
 import Quickshell.Wayland
 import qs.modules.lockscreen
+import qs.modules.singles
 import Quickshell.Hyprland
 
 ShellRoot {
@@ -27,15 +28,31 @@ ShellRoot {
   }
   GlobalShortcut{
     name: "lockscreen"
-    onPressed: lock.locked = true
+    onPressed: {
+      lock.locked = true
+      console.log("lock: " + Conf.lockscreen)
+      if(Conf.lockscreen === "random") {
+        WPService.lockscreen = WPService.walls[Math.floor(Math.random() * WPService.walls.length)]
+        rndTimer.start();
+      }
+    }
   }
   LockContext {
     id: lockContext
 
     onUnlocked: {
       lock.locked = false;
-      // Qt.quit();
+      rndTimer.stop();
     }
+  }
+
+  // Picks random wp
+  Timer {
+    id: rndTimer
+    running: false
+    repeat: true
+    interval: 10000
+    onTriggered: WPService.lockscreen = WPService.walls[Math.floor(Math.random() * WPService.walls.length)]
   }
 
   WlSessionLock {
@@ -51,58 +68,4 @@ ShellRoot {
       }
     }
   }
-  // Desktop {}
-  // Loader {
-  //   id: bgLoader
-  //   visible: true
-  //   sourceComponent:
-  //   // Background {}
-  //   Variants {
-  //     model: Quickshell.screens
-  //     delegate: Component {
-  //       Background {
-  //         required property var modelData
-  //         screen: modelData
-  //       }
-  //     }
-  //   }
-  // }
-  //
-  // Variants {
-  //   model: Quickshell.screens;
-  //   delegate: Component {
-  //     Loader {
-  //       required property var modelData
-  //       property int hgt: Conf.barHeight
-  //       sourceComponent: Bar {
-  //         screen: modelData
-  //         barWidth: modelData.width - 50
-  //         // barHeight: Hyprland.workspaces.values.length < 7 ? hgt : hgt * 0.8
-  //       }
-  //     }
-  //   }
-  // }
-  //
-  // Loader {
-  //   sourceComponent:
-  //   Variants {
-  //     model: Quickshell.screens;
-  //     delegate: Component {
-  //       Dash {
-  //         required property var modelData
-  //         screen: modelData
-  //       }
-  //     }
-  //   }
-  // }
-  //
-  // Variants {
-  //   model: Quickshell.screens;
-  //   delegate: Component {
-  //     NotiPop {
-  //       required property var modelData
-  //       screen: modelData
-  //     }
-  //   }
-  // }
 }

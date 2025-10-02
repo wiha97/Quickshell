@@ -25,8 +25,10 @@ Scope {
     property int count: 6
 
     onTriggered: {
-      if (fPrintSuccess)
+      if (fPrintSuccess) {
+        reset();
         unlocked();
+      }
       else if (count <= 0) {
         fPrintCheck();
       }
@@ -35,6 +37,14 @@ Scope {
         fPrintTimer.start();
       }
     }
+  }
+
+  function reset(){
+    currentText = "";
+    unlockInProgress = false;
+    showFailure = false;
+    fPrintFail = false;
+    fPrintSuccess = false;
   }
 
   function tryUnlock() {
@@ -89,6 +99,7 @@ Scope {
 
     onCompleted: result => {
       if (result == PamResult.Success) {
+        root.reset();
         root.unlocked();
       }
       else {
