@@ -4,15 +4,17 @@
   "lineHeight": 10,
   "topMargin": 5,
   "sideMargin": 15,
-  "mainColor": "#05272727",
+  "mainColor": "#1A040a11",
   "secColor": "#1A1e90ff",
-  "lineColor": null,
+  "lineColor": "#051e90ff",
   "accentColor": "#051e90ff",
-  "hilightColor": "#4D1e90ff",
+  "hilightColor": "#1A1e90ff",
   "mainBColor": null,
   "secBColor": "#CCffffff",
   "txtColor": "white",
   "secTxtColor": "white",
   "showLine": true,
-  "barOnTop": true
+  "barOnTop": true,
+  "background": "archblue",
+  "lock": "reach"
 }
