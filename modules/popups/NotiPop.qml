@@ -3,6 +3,7 @@ import QtQuick.Layouts
 import QtQuick.Controls
 import Quickshell
 import Quickshell.Widgets
+import Quickshell.Hyprland
 import Quickshell.Services.Notifications
 import qs.modules.singles
 import qs
@@ -16,6 +17,7 @@ PanelWindow {
   property int baseHeight: 35 + (5 * notes.length);
   property int totalHeight
   property bool show: NotificationService.showNotes;
+  property bool focusedMonitor: screen.name === Hyprland.focusedMonitor.name;
   anchors {
     bottom: true
     right: true
@@ -34,8 +36,8 @@ PanelWindow {
       NotificationService.startTimer(false);
     }
   }
-  implicitWidth: NotificationService.showNotes ? 450 : 100
-  implicitHeight: NotificationService.showNotes ? getTotalHeight() : 35
+  implicitWidth: NotificationService.showNotes && focusedMonitor ? 450 : 100
+  implicitHeight: NotificationService.showNotes && focusedMonitor ? getTotalHeight() : 35
   function getTotalHeight(){
     let height = baseHeight;
     notes.forEach((note)=>{
@@ -205,6 +207,8 @@ PanelWindow {
               else if (note.summary.length > 0)
                 title = note.summary;
             }
+            // if(title.length > 35)
+            //   title = title.substring(0,35) + "...";
           }
           width: parent.width - 10
           height: setHeight();
@@ -223,7 +227,6 @@ PanelWindow {
           }
           function getImg(){
             let img = modelData.image
-            console.log("hitting this?")
             if(img.length > 0 && !img.includes("/icon/"))
               return modelData.image
             return getPath(modelData.body);
@@ -259,10 +262,14 @@ PanelWindow {
                   height: 22
                   anchors.verticalCenter: parent.verticalCenter
                 }
-                Text {
-                  text: title
-                  color: Conf.txtColor
-                  anchors.verticalCenter: parent.verticalCenter
+                ScrollView {
+                  width: 325
+                  ScrollBar.vertical.policy: ScrollBar.AlwaysOff
+                  Text {
+                    text: title
+                    color: Conf.txtColor
+                    anchors.verticalCenter: parent.verticalCenter
+                  }
                 }
               }
               ClippingRectangle {
@@ -275,7 +282,7 @@ PanelWindow {
                   visible: !image
                   anchors.fill: parent
                   contentWidth: contentView.width
-                  ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
+                  // ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
                   ScrollBar.vertical.policy: ScrollBar.AlwaysOff
                   TextEdit {
                     text: bodyMsg
