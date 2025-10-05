@@ -16,12 +16,6 @@ Rectangle {
   property bool hasFprint
 
 
-  //  In case of bork
-  //
-  // Button {
-  //   text: "abort!"
-  //   onClicked: context.unlocked();
-  // }
 
   Process {
     running: true
@@ -51,7 +45,7 @@ Rectangle {
   FastBlur{
     visible: passwordBox.focus
     source: img
-    radius: 30
+    radius: passwordBox.text.length * 10
     anchors.fill: parent
   }
 
@@ -119,15 +113,15 @@ Rectangle {
       renderType: Text.NativeRendering
       font.pointSize: 80
 
-      Timer {
-        interval: 1000
-        running: true
-        repeat: true
+      // Timer {
+      //   interval: 1000
+      //   running: true
+      //   repeat: true
+      //
+      //   onTriggered: clock.date = new Date();
+      // }
 
-        onTriggered: clock.date = new Date();
-      }
-
-      text: Qt.formatTime(date, "HH:mm")
+      text: TimeService.time
     }
 
     ColumnLayout {
@@ -232,4 +226,10 @@ Rectangle {
       color: "lightblue"
     }
   }
+  //  In case of bork
+  //
+  // Button {
+  //   text: "abort!"
+  //   onClicked: context.unlocked();
+  // }
 }

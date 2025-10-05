@@ -10,6 +10,20 @@ Singleton {
   property list<string> walls
   property string lockscreen
 
+  function getWPByName(name){
+    console.log(walls.length + " Looking for WP with name " + name)
+    // walls.forEach((wp) => {
+    for(let i = 0; i < walls.length; i++){
+      let wp = walls[i];
+      // console.log(wp)
+      if(wp.includes(name) && name.length > 0){
+        // console.log("WP contains " + name)
+        return wp;
+      }
+    }
+    // return walls.filter((wp)=>wp.includes(name)).first()
+  }
+
   Process {
     id: proc
     running: false
