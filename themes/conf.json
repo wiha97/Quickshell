@@ -15,6 +15,12 @@
   "secTxtColor": "white",
   "showLine": true,
   "barOnTop": true,
-  "background": "archblue",
-  "lock": "reach"
+  "perMonBgs": [
+    "S24B350:portal-left",
+    "AG241QG4:archblue",
+    "PHL 242G5:portal-right",
+    "0x0BCA:archblue"
+  ],
+  "lock": "plain",
+  "showWP": true
 }

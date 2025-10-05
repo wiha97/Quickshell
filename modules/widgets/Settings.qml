@@ -124,6 +124,13 @@ Rectangle {
               Conf.barOnTop = !Conf.barOnTop;
             }
           }
+          ConfCheckbox {
+            confName: "Show wallpaper"
+            confBool: Conf.showWP
+            function switchBool(){
+              Conf.showWP = !Conf.showWP;
+            }
+          }
         }
       }
     }

@@ -11,6 +11,7 @@ Rectangle {
   id: rect
   color: "transparent"
   property list<string> wps
+  property string monitor: screen.model
   focus: true
 
   ColumnLayout {
@@ -43,20 +44,33 @@ Rectangle {
         property int screenCount: Quickshell.screens.length
         model: Quickshell.screens
         Rectangle {
-          color: Conf.secColor
+          property string model: modelData.model
+          property string input: modelData.name
+          color: Conf.hilightColor
+          opacity: rect.monitor === model ? 1 : 0.4
           height: parent.height
           width: ((screen.width / 2) - 60) / Quickshell.screens.length - (Quickshell.screens.length * 15) - (15 * 2)
           radius: 15
           Column {
               anchors.centerIn: parent
             Label {
-              text: modelData.model
+              text: model
               anchors.horizontalCenter: parent.horizontalCenter
             }
             Label {
-              text: "("+modelData.name+")"
+              text: "("+input+")"
               font.pixelSize: 10
               anchors.horizontalCenter: parent.horizontalCenter
+            }
+          }
+          MouseArea {
+            anchors.fill: parent
+            hoverEnabled: false
+            onClicked: {
+              if(rect.monitor === model)
+                rect.monitor = screen.model
+              else
+                rect.monitor = model
             }
           }
         }
@@ -87,7 +101,18 @@ Rectangle {
                 asynchronous: true
               }
               Rectangle {
-                visible: modelData.includes(Conf.background) && Conf.background.length > 0
+                id: currentBox
+                visible: {
+                  for(let i = 0; i < Conf.perMonBgs.length; i++){
+                    let split = Conf.perMonBgs[i].split(":");
+                    let mon = split[0];
+                    let wp = split[1];
+                    if(modelData.includes(wp))
+                      return true;
+                  }
+                  return false;
+                }
+                // visible: modelData.includes(Conf.background) && Conf.background.length > 0
                 anchors.fill: parent
                 opacity: 0.6
                 color: "#202020"
@@ -115,12 +140,22 @@ Rectangle {
               MouseArea {
                 anchors.fill: parent
                 onClicked: {
-                  if(!modelData.includes(Conf.background) || Conf.background.length == 0){
-                    Conf.background = null;
-                    Conf.background = modelData;
-                  } else {
-                    Conf.background = null;
+                  for(let i = 0; i < Conf.perMonBgs.length; i++){
+                    let split = Conf.perMonBgs[i].split(":");
+                    let mon = split[0];
+                    let wp = split[1];
+                    if(mon === rect.monitor){
+                      // Conf.perMonBgs[i] = monitor+":"
+                      Conf.perMonBgs[i] = monitor+":"+modelData
+                      // console.log(Conf.perMonBgs)
+                    }
                   }
+                  // if(!modelData.includes(Conf.background) || Conf.background.length == 0){
+                  //   Conf.background = null;
+                  //   Conf.background = modelData;
+                  // } else {
+                  //   Conf.background = null;
+                  // }
                 }
               }
             }

@@ -7,7 +7,7 @@ import qs.modules.singles
 
 PanelWindow {
   id: bgWindow
-  visible: Conf.background
+  visible: Conf.perMonBgs.length && Conf.showWP
   color: "transparent"
   exclusionMode: ExclusionMode.Ignore
   aboveWindows: false
@@ -22,7 +22,21 @@ PanelWindow {
     color: "transparent"
     Image {
       id: img
-      source: Conf.background
+      // source: Conf.background
+      source: {
+        let model = screen.model;
+        for(let i = 0; i < Conf.perMonBgs.length; i++) {
+          let wp = Conf.perMonBgs[i]
+          if(wp.startsWith(model)){
+            let wpName = wp.substring(wp.indexOf(":")+1);
+            if(!wpName.includes(Conf.wpPath))
+              wpName = WPService.getWPByName(wpName)
+            // console.log("wp: "+wpName+" "+model);
+            return wpName;
+            // return Conf.wpPath+"/"+wp.substring(wp.indexOf(":")+1)
+          }
+        }
+      }
       anchors.fill: parent
       sourceSize.width: screen.width
       sourceSize.height: screen.height

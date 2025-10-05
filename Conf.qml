@@ -182,5 +182,7 @@ Singleton {
   // property string wpPath: "/home/tux/Pictures/Wallpapers"
   property string wpPath: getVal(job.wpPath, "/home/"+user+"/Pictures/wallpapers")
   property string background: job.background.length > 0 ? wpPath+"/"+job.background : null
+  property list<string> perMonBgs: job.perMonBgs;
+  property bool showWP: job.showWP
   property string lockscreen: getVal(job.lock, "random")
 }

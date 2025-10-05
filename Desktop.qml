@@ -16,8 +16,12 @@ ShellRoot {
   id: root
 
   property var screen
-  Background {
-    screen: root.screen
+  LazyLoader {
+    id: bgLoader
+    loading: false
+    component: Background {
+      screen: root.screen
+    }
   }
   Bar {
     screen: root.screen
@@ -28,6 +32,14 @@ ShellRoot {
   }
   NotiPop {
     screen: root.screen
+  }
+
+  // Gives wpPath time to set
+  Timer {
+    running: true
+    repeat: false
+    interval: 500
+    onTriggered: bgLoader.loading = true
   }
   // Loader {
   //   id: bgLoader
