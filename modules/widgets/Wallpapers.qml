@@ -102,13 +102,16 @@ Rectangle {
               }
               Rectangle {
                 id: currentBox
+                property string input
                 visible: {
-                  for(let i = 0; i < Conf.perMonBgs.length; i++){
-                    let split = Conf.perMonBgs[i].split(":");
+                  for(let i = 0; i < Conf.backgrounds.length; i++){
+                    let split = Conf.backgrounds[i].split(":");
                     let mon = split[0];
                     let wp = split[1];
-                    if(modelData.includes(wp))
+                    if(modelData.includes(wp) && wp.length > 0) {
+                      input = mon;
                       return true;
+                    }
                   }
                   return false;
                 }
@@ -117,7 +120,8 @@ Rectangle {
                 opacity: 0.6
                 color: "#202020"
                 Label {
-                  text: "CURRENT"
+                  text: currentBox.input
+                  // text: "CURRENT"
                   anchors.centerIn: parent
                 }
               }
@@ -140,14 +144,21 @@ Rectangle {
               MouseArea {
                 anchors.fill: parent
                 onClicked: {
-                  for(let i = 0; i < Conf.perMonBgs.length; i++){
-                    let split = Conf.perMonBgs[i].split(":");
+                  for(let i = 0; i < Conf.backgrounds.length; i++){
+                    let split = Conf.backgrounds[i].split(":");
                     let mon = split[0];
                     let wp = split[1];
-                    if(mon === rect.monitor){
-                      // Conf.perMonBgs[i] = monitor+":"
-                      Conf.perMonBgs[i] = monitor+":"+modelData
-                      // console.log(Conf.perMonBgs)
+                    if(mon === monitor){
+                      if(modelData.includes(wp) && wp.length != 0)
+                        Conf.backgrounds[i] = monitor+":"
+                      else
+                        Conf.backgrounds[i] = monitor+":"+modelData
+                      // if(!modelData.includes(wp) || wp.length > 0) {
+                      //   // Conf.backgrounds[i] = monitor+":"
+                      //   Conf.backgrounds[i] = rect.monitor+":"+modelData
+                      // // } else
+                      //   Conf.backgrounds[i] = rect.monitor+":"
+                      // console.log(Conf.backgrounds)
                     }
                   }
                   // if(!modelData.includes(Conf.background) || Conf.background.length == 0){

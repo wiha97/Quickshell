@@ -60,6 +60,8 @@ WidBase {
                   return "";
                 case "special:magic":
                   return "󱓧";
+                case "special:media":
+                  return "";
                 default:
                   return "["+modelData.name+"]";
               }

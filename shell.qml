@@ -10,6 +10,7 @@ import Quickshell.Wayland
 import qs.modules.lockscreen
 import qs.modules.singles
 import Quickshell.Hyprland
+import qs
 
 ShellRoot {
   id: root
