@@ -1,5 +1,7 @@
 # First Quickshell config
 
+![Desktop](assets/desktop.png)
+
 ## 🚀 FEATURES:
 
 
