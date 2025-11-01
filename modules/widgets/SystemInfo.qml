@@ -10,7 +10,8 @@ Rectangle {
   anchors.centerIn: parent
     id: label
     text: Fetch.info
+    font.family: "JetBrainsMonoNL Nerd Font Mono"
     font.pixelSize: Conf.fontSize * 0.8
-    font.family: "MesloLGS NF"
+    // font.family: "MesloLGS NF"
   }
 }

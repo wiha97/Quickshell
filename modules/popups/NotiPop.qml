@@ -41,13 +41,13 @@ PanelWindow {
   function getTotalHeight(){
     let height = baseHeight;
     notes.forEach((note)=>{
-      let length = note.body.length != 0 ? note.body.length : note.summary.length;
+      let length = note.body.length + note.summary.length != 0 ? note.body.length + note.summary.length : note.summary.length;
       // console.log(length);
       if (length < wrapLength)
         height += notiHeights[0]
       else if(length < wrapLength * 6)
         height += notiHeights[1]
-      if(hasImage(note) || length >= wrapLength * 6)
+      if(hasImage(note) || length >= wrapLength * 6 || note.appIcon.startsWith("/tmp"))
         height += notiHeights[2]
     });
     return height
@@ -55,7 +55,7 @@ PanelWindow {
   function hasImage(mod){
     // console.log("bod: "+modelData.body)
     let icons = ["/icon/", "/qsimage/"]
-    if((mod.image.length > 0 && !icons.some(i=>mod.image.includes(i))) || bodyHasImg(mod.body))
+    if((mod.image.length > 0 && !icons.some(i=>mod.image.includes(i))) || bodyHasImg(mod.body) || mod.appIcon.startsWith("/tmp"))
       return true;
     return false;
   }
@@ -182,9 +182,21 @@ PanelWindow {
                 bodyMsg = pathlessMsg;
               }
               image = path;
+            }else if(note.appIcon.startsWith("/tmp")) {
+              title = note.summary
+              image = note.appIcon;
             } else {
-              if(note.body.length > 0)
+              if(!title.length){
+                if(note.appName.length > 0)
+                  title = note.appName;
+                else if (note.summary.length > 0)
+                  title = note.summary;
+              }
+              if(note.body.length > 0) {
                 bodyMsg = note.body;
+                if(note.summary.length > 0 && title != note.summary)
+                  bodyMsg += " - " + note.summary
+              }
               else
                 bodyMsg = note.summary;
               // if(note.image.length > 20){
@@ -200,12 +212,6 @@ PanelWindow {
                 // if(note.image.length < 50)
                 icon = note.image.replace("image://icon/", "");
               }
-            }
-            if(!title.length){
-              if(note.appName.length > 0)
-                title = note.appName;
-              else if (note.summary.length > 0)
-                title = note.summary;
             }
             // if(title.length > 35)
             //   title = title.substring(0,35) + "...";

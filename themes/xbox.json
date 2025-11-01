@@ -13,7 +13,10 @@
   "secBColor": "#CC32cd32",
   "txtColor": "#32cd32",
   "secTxtColor": "white",
+  "backgrounds": [
+    "AG241QG4:xbox"
+  ],
+  "lock": "xbox",
   "showLine": true,
-  "barOnTop": true,
-  "background": "xbox.png"
+  "barOnTop": true
 }

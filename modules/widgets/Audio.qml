@@ -65,7 +65,7 @@ WidBase {
     Slider {
       hoverEnabled: false
       visible: expanded
-      to: 0.5
+      to: 1
       from: 0
       value: sink.audio.volume
       onValueChanged: sink.audio.volume = value;

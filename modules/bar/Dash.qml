@@ -86,6 +86,7 @@ PanelWindow {
         }
         Text {
           visible: TitleService.icon === "N/A"
+          font.family: "JetBrainsMonoNL Nerd Font Mono"
           text: ""
           color: "#589FEF"
           // font.pixelSize: fSize

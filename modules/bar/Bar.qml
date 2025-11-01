@@ -41,8 +41,14 @@ PanelWindow {
 
   implicitHeight: barHeight
   implicitWidth: barWidth
+  property int margin: {
+    if(Conf.hidePanel.includes(screen.name)){
+      return -barHeight+5
+    }
+    return topMarge
+  }
   margins {
-    top: topMarge
+    top: margin
     left: sideMarge
     right: sideMarge
     bottom: topMarge
@@ -54,6 +60,25 @@ PanelWindow {
     id: bar
     anchors.fill: parent
     color: 'transparent'
+
+    MouseArea {
+      anchors.fill: parent
+      hoverEnabled: true
+      onEntered: margins.top = topMarge;
+      onExited: hideTimer.start();
+    }
+
+    Timer {
+      id: hideTimer
+      running: false
+      interval: 1500
+      onTriggered: {
+        if(Conf.hidePanel.includes(screen.name)){
+          margins.top = -barHeight+5
+        }
+        // margins.top = topMarge
+      }
+    }
 
     Rectangle {
       visible: showLine

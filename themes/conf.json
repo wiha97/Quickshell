@@ -20,6 +20,10 @@
     "AG241QG4:depths",
     "PHL 242G5:portal right"
   ],
+  "hidePanel": [
+    "DP-1",
+    "HDMI-A-1"
+  ],
   "lock": "plain",
   "showWP": true
 }

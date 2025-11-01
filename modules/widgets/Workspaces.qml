@@ -22,10 +22,47 @@ WidBase {
       // model: Hyprland.workspaces
 
       Rectangle {
+        property list<string> alwaysShow: ["dev"]
         property bool sameScreen: modelData.monitor.name === monitor
-        visible: sameScreen || !modelData.active
         property string wId: modelData.id
         property string wName: modelData.name
+        property bool isVisible: {
+          // let always = ["dev"];
+          let monName = modelData.monitor.name;
+          if(monName === monitor)
+            return true;
+          if(alwaysShow.includes(wName))
+            return true;
+          if(!modelData.active){
+            if(wName === monName)
+              return false;
+            return true;
+          }
+          return false;
+        }
+        property string title: {
+          switch(modelData.name){
+              case "special:browser":
+                return "";
+              case "special:files":
+                return "";
+              case "special:magic":
+                return "󱓧";
+              case "special:media":
+                return "";
+              case "dev":
+                return "";
+              case monitor:
+                return "󰍹";
+              default:
+                // if(wName.startsWith("mon"))
+                //   return "󰍹";
+                return "["+wName+"]";
+            }
+        }
+        visible: isVisible
+        // visible: sameScreen || !modelData.active && wName != modelData.monitor.name || wName === "dev"
+        // visible: sameScreen || !modelData.active || wName === "dev"
         // width: barHeight * 2
         height: widgetHeight+2
         width: 15+row.width
@@ -40,9 +77,11 @@ WidBase {
           onClicked:{
             if(wName.includes("special")){
               Hyprland.dispatch("togglespecialworkspace " + wName.substring(wName.indexOf(":")+1));
+            } else if(wName != modelData.monitor.name) {
+              Hyprland.dispatch("moveworkspacetomonitor " + wName + " current");
+              Hyprland.dispatch("workspace " + wName);
             } else {
-              Hyprland.dispatch("moveworkspacetomonitor " + modelData.id + " current");
-              Hyprland.dispatch("workspace " + modelData.id);
+              Hyprland.dispatch("workspace " + wName);
             }
           }
         }
@@ -52,20 +91,26 @@ WidBase {
           spacing: 5
           anchors.centerIn: parent
           Text {
-            text: {
-              switch(modelData.name){
-                case "special:browser":
-                  return "";
-                case "special:files":
-                  return "";
-                case "special:magic":
-                  return "󱓧";
-                case "special:media":
-                  return "";
-                default:
-                  return "["+modelData.name+"]";
-              }
-            }
+            text: title
+            //   switch(modelData.name){
+            //     case "special:browser":
+            //       return "";
+            //     case "special:files":
+            //       return "";
+            //     case "special:magic":
+            //       return "󱓧";
+            //     case "special:media":
+            //       return "";
+            //     case "dev":
+            //       return "";
+            //     case monitor:
+            //       return "󰍹";
+            //     default:
+            //       // if(wName.startsWith("mon"))
+            //       //   return "󰍹";
+            //       return "["+wName+"]";
+            //   }
+            // }
             // text: wId === "-98" ? "\udb85\udce7" : "["+modelData.name+"]"
             font.pixelSize: fontSize
             color: txtColor
@@ -109,9 +154,7 @@ WidBase {
 
       MouseArea {
         anchors.fill: parent
-        onClicked: Hyprland.dispatch("workspace emptymn")
-        // onClicked: wId === "-98" ? Hyprland.dispatch("togglespecialworkspace scratchpad") :
-        //                            Hyprland.dispatch("workspace " + modelData.id)
+        onClicked: Hyprland.dispatch("workspace emptym")
       }
     }
   }
