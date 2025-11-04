@@ -1,12 +1,21 @@
 # First Quickshell config
-
 ![Desktop](assets/desktop.png)
 
-## 🚀 FEATURES:
+> [!IMPORTANT]
+> Only supports Hyprland at the moment
 
+## 🚀 FEATURES:
+- Per-monitor wallpapers
+- Lockscreen with fprint support
+- Hyprland
+    - Hypr splash
+    - Workspace switching
+    - Global shortcuts
+- Autohide bar (per-monitor)
 
 ### 🎨 Themable
 ![themable](assets/themes.png)
+
 ### Wallpaper picker
 ![wallpapers](assets/wallpapers.png)
 
@@ -15,7 +24,9 @@
 
 
 #### 📓 TODO
-- [-] Clipboard manager
-- [ ] Calendar
-- [-] Save-able themes
-
+- [ ] Animations
+- [ ] Clipboard manager
+- [ ] Save-able themes
+- [ ] More WM support (Sway, Niri, etc.)
+- [ ] Rework notifications
+- [ ] Un-pasta the code
