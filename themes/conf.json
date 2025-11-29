@@ -17,12 +17,15 @@
   "barOnTop": true,
   "backgrounds": [
     "S24B350:portal left",
-    "AG241QG4:depths",
+    "AG241QG4:stargate",
     "PHL 242G5:portal right"
   ],
   "hidePanel": [
     "DP-1",
     "HDMI-A-1"
+  ],
+  "hideNotes": [
+    "DP-2"
   ],
   "lock": "plain",
   "showWP": true

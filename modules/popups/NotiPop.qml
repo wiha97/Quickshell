@@ -10,7 +10,12 @@ import qs
 
 PanelWindow {
   property list<Notification> notes: NotificationService.noties
-  visible: notes.length === 0 ? false : true
+  // visible: notes.length === 0 ? false : true
+  visible: {
+    if(Conf.hideNotes.includes(screen.name))
+      return false;
+    return notes.length > 0;
+  }
   property list<int> notiHeights: ["65", "90", "200"]
   property int wrapLength: 38
   // property int totalHeight: (notes.length * notiHeight) + 35 + (5 * notes.length);
@@ -223,7 +228,7 @@ PanelWindow {
             let length = bodyMsg.length;
             if(length < wrapLength)
               height = notiHeights[0];
-            else if(length < wrapLength * 6)
+            else if(length < wrapLength * 5)
               height = notiHeights[1];
             else
               height = notiHeights[2];
